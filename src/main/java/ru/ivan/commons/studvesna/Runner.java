@@ -1,15 +1,15 @@
 package ru.ivan.commons.studvesna;
 
-import ru.ivan.commons.studvesna.splines.*;
-import ru.ivan.commons.studvesna.interferogram.*;
+import ru.ivan.commons.studvesna.interferogram.Interferogram;
+import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
+import ru.ivan.commons.studvesna.splines.Spline;
+import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
+import ru.ivan.commons.studvesna.splines.SplineUtils;
 
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import javax.swing.*;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import static ru.ivan.commons.studvesna.utils.FileUtils.*;
 
@@ -17,39 +17,22 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        JFrame frame = new JFrame("File Chooser Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
 
-        System.out.println("Enter the source folder FULL path: ");
-        SOURCE_FOLDER = scanner.nextLine();
-        System.out.println("Enter the target folder FULL path: ");
-        TARGET_FOLDER = scanner.nextLine();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select files you wish");
+        fileChooser.setMultiSelectionEnabled(true);
 
-        while (true) {
+        int userSelection = fileChooser.showOpenDialog(frame);
 
-            System.out.println("Start generating...");
-
-            trash( TARGET_FOLDER );
-
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream( Path.of( SOURCE_FOLDER ) )) {
-
-                int n = 0;
-                for ( Path file : stream ) {
-                    if ( Files.isRegularFile( file ) ) {
-                        List<Spline> splines = getApproximatedSpectrum( n+1 );
-                        Interferogram interferogram = getApproximatedInterferogram( splines, n+1 );
-                        System.out.printf("Result folder №%d has been generated.\n", n+1);
-                        n++;
-                    }
-                }
-                System.out.println("Generating stopped.");
-
-                System.out.println( "Press any key to continue." );
-                scanner.nextLine();
-
-            } catch ( IOException ex) {
-                ex.printStackTrace();
+        File[] filesToOpen;
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            filesToOpen = fileChooser.getSelectedFiles();
+            for (File file : filesToOpen) {
+                System.out.println(file.getAbsolutePath());
             }
-
         }
 
     }
