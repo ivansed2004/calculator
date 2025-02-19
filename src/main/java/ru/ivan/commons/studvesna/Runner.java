@@ -19,9 +19,37 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        Scanner scn = new Scanner( System.in );
+        System.out.println("Select the target directory: ");
+        getTargetDirectory();
+        System.out.println(TARGET_DIRECTORY);
 
-        TARGET_DIRECTORY = "/home/ivan/Desktop/Студвесна 2024/Часть 2/target";
+        System.out.println("Select the files you wish: ");
+        generateOutput();
+
+    }
+
+    // An unexpected error occurs when processing the source files that have already processed in the previous session.
+    private static void getTargetDirectory() {
+
+        JFrame frame = new JFrame("File Manager");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(640, 480);
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select files you wish");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int userSelection = fileChooser.showOpenDialog(frame);
+
+        // Default path
+        TARGET_DIRECTORY = "/home/ivan/Desktop/target";
+        if ( userSelection == JFileChooser.APPROVE_OPTION ) {
+            TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsoluteFile().getAbsolutePath();
+        }
+
+    }
+
+    private static void generateOutput() {
 
         while (true) {
 
@@ -35,9 +63,8 @@ public class Runner {
 
             int userSelection = fileChooser.showOpenDialog(frame);
 
-            File[] filesToOpen;
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                filesToOpen = fileChooser.getSelectedFiles();
+            if ( userSelection == JFileChooser.APPROVE_OPTION ) {
+                File[] filesToOpen = fileChooser.getSelectedFiles();
                 System.out.println("Start generating...");
                 for (File file : filesToOpen) {
 
@@ -46,26 +73,29 @@ public class Runner {
 
                     String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                     String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
-                    String interferogramAnalyticalFilename = String.format("interferogram_analyticla%d.txt", fileNum);
+                    String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
 
                     List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                     Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
                     getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
 
+                    System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
+
                 }
             }
 
+            Scanner scn = new Scanner( System.in );
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "exit") ) {
                 trash( TARGET_DIRECTORY );
                 System.exit(0);
             }
+            scn.close();
 
         }
 
     }
 
-    // Fix the spectrum printing
     private static List<Spline> getApproximatedSpectrum( File file, String targetPath, String fileName ) {
 
         List<Spline> splines = SplineEquationResolver.resolve( file, 20 );
@@ -76,6 +106,7 @@ public class Runner {
 
     }
 
+    // Fix the algorithms of analytical function strings forming
     private static Interferogram getApproximatedInterferogram( List<Spline> splines, String targetPath, String fileName ) {
 
         double start = 1429.155;
