@@ -1,21 +1,20 @@
 package ru.ivan.commons.studvesna.splines;
 
-import static ru.ivan.commons.studvesna.utils.FileUtils.SEP;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.ivan.commons.studvesna.utils.FileUtils.SEP;
+
 public class SplineUtils {
 
     private SplineUtils() {}
 
-    public static void performSampling( double period, List<Spline> splines ) {
+    public static void performSampling( List<Spline> splines, double period ) {
 
         int temp = 0;
         for ( Spline spline: splines ) {
@@ -49,7 +48,7 @@ public class SplineUtils {
 
     }
 
-    public static void persist( String path, String fileName, List<Spline> splines ) {
+    public static void persist( List<Spline> splines, String path, String fileName ) {
 
         try {
 
@@ -59,17 +58,15 @@ public class SplineUtils {
             Files.createFile( filePath );
 
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating 'interferogram.dat' file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating 'spectrum.dat' file...: " + ex.getMessage());
         }
 
-        File file = new File( path + SEP + fileName );
-
-        try ( PrintWriter writer = new PrintWriter( new FileWriter( file ) ) ) {
+        try ( FileWriter fw = new FileWriter( path + SEP + fileName ) ) {
             for ( Spline s : splines ) {
                 List<Double> wn = s.getWaveNumbers();
                 List<Double> its = s.getIntensities();
                 for ( int i = 0; i < wn.size(); i++ ) {
-                    writer.println( String.format( "%.3f", wn.get(i) ) + "\t" + String.format( "%.8f", its.get(i) ) );
+                    fw.write( String.format( "%.3f", wn.get(i) ) + "\t" + String.format( "%.8f", its.get(i) ) );
                 }
             }
 

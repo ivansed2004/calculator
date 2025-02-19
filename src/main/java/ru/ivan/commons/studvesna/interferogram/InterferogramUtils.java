@@ -13,6 +13,7 @@ public class InterferogramUtils {
 
     private InterferogramUtils() {}
 
+    // Fix the algorithms of analytical function strings forming
     private static String formatWithArgs( Unit[][] units, int i, String func, String exp ) {
         String sequence = "";
 
@@ -135,8 +136,8 @@ public class InterferogramUtils {
 
     }
 
-    public static void persist(String path, String fileName, Map<Double, Double> samples, double start, double end,
-                               double period) {
+    public static void persist( Map<Double, Double> samples, String path, String fileName, double start, double end,
+                               double period ) {
 
         try {
 

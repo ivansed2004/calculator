@@ -10,9 +10,8 @@ import java.util.*;
 
 public class SplineEquationResolver {
 
-    public static List<Spline> resolve( int period, String path ) {
-
-        File file = new File( path );
+    // This method should be public only
+    public static List<Spline> resolve( File file, int period ) {
 
         List<Double> X = new ArrayList<>();
         List<Double> Y = new ArrayList<>();
@@ -62,7 +61,7 @@ public class SplineEquationResolver {
 
     }
 
-    public static RealVector resolveSplineEquation( double[] vectorX, double[] vectorY ) {
+    private static RealVector resolveSplineEquation( double[] vectorX, double[] vectorY ) {
 
         double[][] vars = defineSplineMatrix( vectorX );
         double[] cons = defineConstantsMatrix( vectorY );
@@ -75,7 +74,7 @@ public class SplineEquationResolver {
 
     }
 
-    public static double[][] defineSplineMatrix( double[] vectorX ) {
+    private static double[][] defineSplineMatrix( double[] vectorX ) {
 
         int n = vectorX.length;
         int size = 4*n - 4;
@@ -139,7 +138,7 @@ public class SplineEquationResolver {
 
     }
 
-    public static double[] defineConstantsMatrix( double[] vectorY ) {
+    private static double[] defineConstantsMatrix( double[] vectorY ) {
 
         int n = vectorY.length;
         int size = 4*n - 4;
@@ -161,7 +160,7 @@ public class SplineEquationResolver {
 
     }
 
-    public static List<Spline> getResultSplines( List<Double> vectorX, double[] answers ) {
+    private static List<Spline> getResultSplines( List<Double> vectorX, double[] answers ) {
 
         List<Spline> splines = new ArrayList<>();
 
@@ -200,7 +199,7 @@ public class SplineEquationResolver {
 
     }
 
-    public static int[] resolveEquationsNumbers( int size ) {
+    private static int[] resolveEquationsNumbers( int size ) {
 
         int boundsEN = 2;
         int interpolationEN = 2;

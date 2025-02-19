@@ -9,9 +9,9 @@ public class FileUtils {
 
     public static String SEP = File.separator;
 
-    public static String SOURCE_FOLDER = "";
+    public static String TARGET_DIRECTORY = "";
 
-    public static String TARGET_FOLDER = "";
+    private FileUtils() {}
 
     public static void trash( String path ) {
 
