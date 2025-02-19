@@ -15,8 +15,6 @@ import java.util.Scanner;
 
 import static ru.ivan.commons.studvesna.utils.FileUtils.*;
 
-// PUSH!
-
 public class Runner {
 
     public static void main(String[] args) {
@@ -26,8 +24,6 @@ public class Runner {
         TARGET_DIRECTORY = "/home/ivan/Desktop/Студвесна 2024/Часть 2/target";
 
         while (true) {
-
-            trash( TARGET_DIRECTORY );
 
             JFrame frame = new JFrame("File Manager");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,6 +57,7 @@ public class Runner {
 
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "exit") ) {
+                trash( TARGET_DIRECTORY );
                 System.exit(0);
             }
 

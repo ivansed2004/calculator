@@ -67,6 +67,7 @@ public class SplineUtils {
                 List<Double> its = s.getIntensities();
                 for ( int i = 0; i < wn.size(); i++ ) {
                     fw.write( String.format( "%.3f", wn.get(i) ) + "\t" + String.format( "%.8f", its.get(i) ) );
+                    fw.write("\n");
                 }
             }
 
