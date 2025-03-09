@@ -147,7 +147,7 @@ public class InterferogramUtils {
             Files.createFile( filePath );
 
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating 'interferogram.dat' file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating interferogram_discrete file...: " + ex.getMessage());
         }
 
         try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {
@@ -178,7 +178,7 @@ public class InterferogramUtils {
             Files.createFile( filePath );
 
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating 'interferogram.dat' file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating interferogram_analytical file...: " + ex.getMessage());
         }
 
         try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {

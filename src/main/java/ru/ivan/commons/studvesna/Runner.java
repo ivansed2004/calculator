@@ -8,6 +8,8 @@ import ru.ivan.commons.studvesna.splines.SplineUtils;
 
 import javax.swing.*;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +38,7 @@ public class Runner {
         frame.setSize(640, 480);
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select files you wish");
+        fileChooser.setDialogTitle("Select the target directory");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         int userSelection = fileChooser.showOpenDialog(frame);
@@ -51,6 +53,7 @@ public class Runner {
 
     private static void generateOutput() {
 
+        Scanner scn = new Scanner( System.in );
         while (true) {
 
             JFrame frame = new JFrame("File Manager");
@@ -71,6 +74,10 @@ public class Runner {
                     int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
                     String targetPath = TARGET_DIRECTORY + SEP + String.format("%d", fileNum);
 
+                    if ( Files.exists(Paths.get(targetPath)) ) {
+                        continue;
+                    }
+
                     String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                     String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                     String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
@@ -84,13 +91,11 @@ public class Runner {
                 }
             }
 
-            Scanner scn = new Scanner( System.in );
             System.out.println("Do you wish to terminate the program?");
-            if ( Objects.equals(scn.nextLine(), "exit") ) {
-                trash( TARGET_DIRECTORY );
+            if ( Objects.equals(scn.nextLine(), "y") ) {
+                scn.close();
                 System.exit(0);
             }
-            scn.close();
 
         }
 
