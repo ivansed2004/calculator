@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static ru.ivan.commons.studvesna.utils.FileUtils.*;
+import static ru.ivan.commons.studvesna.file.FileUtils.*;
 
 public class Runner {
 
@@ -30,7 +30,6 @@ public class Runner {
 
     }
 
-    // An unexpected error occurs when processing the source files that have already processed in the previous session.
     private static void getTargetDirectory() {
 
         JFrame frame = new JFrame("File Manager");

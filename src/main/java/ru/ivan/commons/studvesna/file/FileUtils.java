@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.utils;
+package ru.ivan.commons.studvesna.file;
 
 import java.io.File;
 import java.io.IOException;

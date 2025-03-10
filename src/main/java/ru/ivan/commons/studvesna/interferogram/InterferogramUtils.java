@@ -1,6 +1,6 @@
 package ru.ivan.commons.studvesna.interferogram;
 
-import static ru.ivan.commons.studvesna.utils.FileUtils.SEP;
+import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
 import ru.ivan.commons.studvesna.splines.Spline;
 import java.io.FileWriter;
 import java.io.IOException;
