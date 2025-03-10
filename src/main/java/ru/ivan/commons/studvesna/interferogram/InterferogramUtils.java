@@ -1,6 +1,8 @@
 package ru.ivan.commons.studvesna.interferogram;
 
 import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
+
+import ru.ivan.commons.studvesna.regex.ExpressionBuilder;
 import ru.ivan.commons.studvesna.splines.Spline;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,35 +15,7 @@ public class InterferogramUtils {
 
     private InterferogramUtils() {}
 
-    // Fix the algorithms of analytical function strings forming
-    private static String formatWithArgs( Unit[][] units, int i, String func, String exp ) {
-        String sequence = "";
-
-        double amp0 = units[i][0].getA();
-        double arg0 = units[i][0].getC();
-
-        if ( amp0 >= 0.001 ) {
-            if ( (Objects.equals(func, "sin") && Math.sin(arg0) != 0) ||
-                    (Objects.equals(func, "cos") && Math.cos(arg0) != 0) ) {
-                sequence = String.format("%.3f%s(%.3fx)", amp0, func, arg0);
-            }
-        }
-
-        for ( int j = 1; j < units[0].length; j++ ) {
-            double amp = units[i][j].getA();
-            double arg = units[i][j].getC();
-            if ( amp >= 0.001 ) {
-                if ( (Objects.equals(func, "sin") && Math.sin(arg) != 0) ||
-                        (Objects.equals(func, "cos") && Math.cos(arg) != 0) ) {
-                    String s = String.format(" + %.3f%s(%.3fx)", amp, func, arg);
-                    sequence = sequence.concat(s);
-                }
-            }
-        }
-        return String.format("(%s)/x%s", sequence, exp);
-    }
-
-    public static Interferogram defineInterferogram(List<Spline> splines) {
+    public static Interferogram defineInterferogram( List<Spline> splines ) {
 
         int SIZE = splines.size(); // N, where N - number of splines
         Unit[][] units = new Unit[10][SIZE+1];
@@ -92,25 +66,12 @@ public class InterferogramUtils {
 
     public static String[] toStrings(Interferogram interferogram) {
 
-        Unit[][] units = interferogram.getUNITS();
-        String[] toReturn = new String[10];
-
-        toReturn[0] = formatWithArgs( units, 0, "cos", "^4" );
-        toReturn[1] = formatWithArgs( units, 1, "sin", "^3" );
-        toReturn[2] = formatWithArgs( units, 2, "sin", "^3" );
-        toReturn[3] = formatWithArgs( units, 3, "cos", "^2" );
-        toReturn[4] = formatWithArgs( units, 4, "cos", "^2" );
-        toReturn[5] = formatWithArgs( units, 5, "cos", "^2" );
-        toReturn[6] = formatWithArgs( units, 6, "sin", "" );
-        toReturn[7] = formatWithArgs( units, 7, "sin", "" );
-        toReturn[8] = formatWithArgs( units, 8, "sin", "" );
-        toReturn[9] = formatWithArgs( units, 9, "sin", "" );
-
-        return toReturn;
+        ExpressionBuilder builder = new ExpressionBuilder(interferogram.getUNITS());
+        return builder.buildExpression();
 
     }
 
-    public static List<Double> getIntLimits(List<Spline> splines) {
+    private static List<Double> getIntLimits(List<Spline> splines) {
         List<Double> intLimits = new ArrayList<>();
         intLimits.add(splines.get(0).getStart());
         for ( Spline s : splines ) {
@@ -183,13 +144,16 @@ public class InterferogramUtils {
 
         try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {
 
-            for ( int i = 0; i < strings.length-1; i++ ) {
-                fw.write( String.format("%s +", strings[i]) );
-                fw.write("\n\n");
+            for (int i = 0; i < strings.length; i++) {
+                if (!Objects.equals(strings[i], "")) {
+                    if ( i != strings.length-1 ) {
+                        fw.write( String.format("%s +", strings[i]) );
+                    } else {
+                        fw.write( String.format("%s", strings[i]) );
+                    }
+                    fw.write("\n\n");
+                }
             }
-            fw.write( String.format("%s", strings[strings.length-1]) );
-            fw.write("\n");
-
         } catch (IOException ex) {
             System.out.println("Error occurred while writing into the file: " + ex.getMessage());
         }

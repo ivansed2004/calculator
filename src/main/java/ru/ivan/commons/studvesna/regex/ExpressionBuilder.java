@@ -12,9 +12,9 @@ public class ExpressionBuilder {
     }
 
     public String[] buildExpression() {
-        return (String[]) Arrays.stream(UNITS)
+        return Arrays.stream(UNITS)
                 .map(this::buildPartialSumExpression)
-                .toArray();
+                .toArray( String[]::new );
     }
 
     private String buildPartialSumExpression( Unit[] units ) {
@@ -23,19 +23,23 @@ public class ExpressionBuilder {
         if ( nonNullUnits.length > 0 ) {
             String s = buildTrigSum(nonNullUnits);
             int n = nonNullUnits[0].getN();
-            result = String.format("(%s)/x^%d", s, n);
+            if (n == 1) {
+                result = String.format("(%s)/x", s);
+            } else {
+                result = String.format("(%s)/x^%d", s, n);
+            }
         }
         return result;
     }
 
     private Unit[] cutNullUnits( Unit[] units ) {
 
-        return (Unit[]) Arrays.stream(units).filter( unit -> {
+        return Arrays.stream(units).filter( unit -> {
             double amp = unit.getA();
             double arg = unit.getC();
             return (amp >= 0.001) &&
                     ((unit.isSIGMA() && Math.sin(arg) != 0) || (!unit.isSIGMA() && Math.cos(arg) != 0) );
-        } ).toArray();
+        } ).toArray( Unit[]::new );
 
     }
 
