@@ -60,7 +60,7 @@ public class InterferogramUtils {
 
         }
 
-        return new Interferogram(intLimits, units);
+        return new Interferogram(units);
 
     }
 
@@ -80,7 +80,7 @@ public class InterferogramUtils {
         return intLimits;
     }
 
-    public static Map<Double, Double> performSampling(Interferogram interferogram, double start, double end, double period) {
+    public static Map<Double, Double> performSampling( Interferogram interferogram, double start, double end, double period ) {
 
         Map<Double, Double> samples = new HashMap<>();
 

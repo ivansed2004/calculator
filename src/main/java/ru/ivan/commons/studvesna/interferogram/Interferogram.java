@@ -1,33 +1,23 @@
 package ru.ivan.commons.studvesna.interferogram;
 
-import java.util.List;
-import java.util.Objects;
-
 public class Interferogram {
-
-    private final List<Double> LIMITS;
 
     private final Unit[][] UNITS;
 
-    public Interferogram(List<Double> limits, Unit[][] results) {
-        this.LIMITS = limits;
+    public Interferogram( Unit[][] results ) {
         this.UNITS = results;
     }
 
-    private static double evaluate( Unit[][] units, int i, double arg, String func ) {
+    public double evaluate( int i, double arg ) {
         double v = 0.0d;
-        for ( int j = 0; j < units[0].length; j++ ) {
-            if ( Objects.equals(func, "cos") ) {
-                v += units[i][j].getA()*Math.cos(units[i][j].getC()*arg);
+        for ( int j = 0; j < UNITS[0].length; j++ ) {
+            if ( !UNITS[i][0].isSIGMA() ) {
+                v += UNITS[i][j].getA()*Math.cos(UNITS[i][j].getC()*arg);
             } else {
-                v += units[i][j].getA()*Math.sin(units[i][j].getC()*arg);
+                v += UNITS[i][j].getA()*Math.sin(UNITS[i][j].getC()*arg);
             }
         }
         return v;
-    }
-
-    public List<Double> getLIMITS() {
-        return LIMITS;
     }
 
     public Unit[][] getUNITS() {
@@ -38,16 +28,16 @@ public class Interferogram {
 
         double value = 0.0d;
 
-        value += evaluate(UNITS, 0, arg, "cos" ) / Math.pow(arg, 4);
-        value += evaluate(UNITS, 1, arg, "sin" ) / Math.pow(arg, 3);
-        value += evaluate(UNITS, 2, arg, "sin" ) / Math.pow(arg, 3);
-        value += evaluate(UNITS, 3, arg, "cos" ) / Math.pow(arg, 2);
-        value += evaluate(UNITS, 4, arg, "cos" ) / Math.pow(arg, 2);
-        value += evaluate(UNITS, 5, arg, "cos" ) / Math.pow(arg, 2);
-        value += evaluate(UNITS, 6, arg, "sin" ) / arg;
-        value += evaluate(UNITS, 7, arg, "sin" ) / arg;
-        value += evaluate(UNITS, 8, arg, "sin" ) / arg;
-        value += evaluate(UNITS, 9, arg, "sin" ) / arg;
+        value += evaluate( 0, arg ) / Math.pow(arg, 4);
+        value += evaluate( 1, arg ) / Math.pow(arg, 3);
+        value += evaluate( 2, arg ) / Math.pow(arg, 3);
+        value += evaluate( 3, arg ) / Math.pow(arg, 2);
+        value += evaluate( 4, arg ) / Math.pow(arg, 2);
+        value += evaluate( 5, arg ) / Math.pow(arg, 2);
+        value += evaluate( 6, arg ) / Math.pow(arg, 1);
+        value += evaluate( 7, arg ) / Math.pow(arg, 1);
+        value += evaluate( 8, arg ) / Math.pow(arg, 1);
+        value += evaluate( 9, arg ) / Math.pow(arg, 1);
 
         return value;
 

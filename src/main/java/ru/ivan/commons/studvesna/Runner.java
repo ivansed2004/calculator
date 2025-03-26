@@ -68,7 +68,7 @@ public class Runner {
             if ( userSelection == JFileChooser.APPROVE_OPTION ) {
                 File[] filesToOpen = fileChooser.getSelectedFiles();
                 System.out.println("Start generating...");
-                for (File file : filesToOpen) {
+                for ( File file : filesToOpen ) {
 
                     int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
                     String targetPath = TARGET_DIRECTORY + SEP + String.format("%d", fileNum);

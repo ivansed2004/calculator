@@ -11,6 +11,8 @@ public class FileUtils {
 
     public static String TARGET_DIRECTORY = "";
 
+    public static String PS_DIRECTORY;
+
     private FileUtils() {}
 
     public static void trash( String path ) {
