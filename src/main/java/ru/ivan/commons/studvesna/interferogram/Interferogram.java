@@ -1,11 +1,48 @@
 package ru.ivan.commons.studvesna.interferogram;
 
+import java.util.Arrays;
+
 public class Interferogram {
 
     private final Unit[][] UNITS;
 
+    private final String MATRIX;
+
+    private final String[] MAX_AMPLITUDES;
+
+    // Immediately or on demand?
     public Interferogram( Unit[][] results ) {
         this.UNITS = results;
+        this.MATRIX = calculateMatrix();
+        this.MAX_AMPLITUDES = calculateMaxAmplitudes();
+    }
+
+    private String calculateMatrix() {
+        String result = "";
+        for ( Unit[] units : UNITS ) {
+            result = result.concat(
+                    Arrays.toString(
+                            Arrays.stream(units)
+                                    .map( u -> String.format("%.3f", Math.round( u.getA()*1000 ) / 1000.0) )
+                                    .toArray()
+                    )
+            );
+            result = result.concat("\n");
+        }
+        return result;
+    }
+
+    private String[] calculateMaxAmplitudes() {
+        String[] result = new String[10];
+        int i = 0;
+        for ( Unit[] units : UNITS ) {
+            Double value = Arrays.stream(units)
+                    .map( u -> Math.abs(Math.round( u.getA()*1000 ) / 1000.0) )
+                    .reduce(0.0, Double::sum);
+            result[i] = String.format("%.8f", value);
+            i++;
+        }
+        return result;
     }
 
     public double evaluate( int i, double arg ) {
@@ -22,6 +59,10 @@ public class Interferogram {
 
     public Unit[][] getUNITS() {
         return UNITS;
+    }
+
+    public String[] getMAX_AMPLITUDES() {
+        return MAX_AMPLITUDES;
     }
 
     public Double getValue(Double arg) {
@@ -41,6 +82,11 @@ public class Interferogram {
 
         return value;
 
+    }
+
+    @Override
+    public String toString() {
+        return MATRIX;
     }
 
 }

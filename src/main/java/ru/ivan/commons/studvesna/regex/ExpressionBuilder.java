@@ -37,12 +37,13 @@ public class ExpressionBuilder {
         return Arrays.stream(units).filter( unit -> {
             double amp = unit.getA();
             double arg = unit.getC();
-            return (amp >= 0.001) &&
+            return (Math.abs(amp) >= 0.001) &&
                     ((unit.isSIGMA() && Math.sin(arg) != 0) || (!unit.isSIGMA() && Math.cos(arg) != 0) );
         } ).toArray( Unit[]::new );
 
     }
 
+    // If '-', make minus instead of plus.
     private String buildTrigSum( Unit[] units ) {
         String result = "";
 

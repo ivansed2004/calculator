@@ -2,6 +2,7 @@ package ru.ivan.commons.studvesna;
 
 import ru.ivan.commons.studvesna.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
+import ru.ivan.commons.studvesna.interferogram.partialSum.PartialSumUtils;
 import ru.ivan.commons.studvesna.splines.Spline;
 import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
 import ru.ivan.commons.studvesna.splines.SplineUtils;
@@ -10,10 +11,7 @@ import javax.swing.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 import static ru.ivan.commons.studvesna.file.FileUtils.*;
 
@@ -43,7 +41,7 @@ public class Runner {
         int userSelection = fileChooser.showOpenDialog(frame);
 
         // Default path
-        TARGET_DIRECTORY = "/home/ivan/Desktop/target";
+        TARGET_DIRECTORY = "/home/ivan/Desktop/studvesna/part-2/target";
         if ( userSelection == JFileChooser.APPROVE_OPTION ) {
             TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsoluteFile().getAbsolutePath();
         }
@@ -83,6 +81,9 @@ public class Runner {
 
                     List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                     Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
+                    System.out.println(interferogram);
+                    System.out.println( Arrays.toString(interferogram.getMAX_AMPLITUDES()) );
+                    //getPartialSums( interferogram, targetPath );
                     getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
 
                     System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
@@ -98,6 +99,16 @@ public class Runner {
 
         }
 
+    }
+
+    private static void getPartialSums( Interferogram interferogram, String targetPath ) {
+
+        double start = 0;
+        double end = 1000;
+        double period = 0.01;
+
+        List<Map<Double, Double>> unitsSamples = PartialSumUtils.performSampling( interferogram, start, end, period );
+        PartialSumUtils.persist( unitsSamples, targetPath, start, end, period );
     }
 
     private static List<Spline> getApproximatedSpectrum( File file, String targetPath, String fileName ) {

@@ -97,6 +97,7 @@ public class InterferogramUtils {
 
     }
 
+    // Combine with 'persist' in 'splines'.
     public static void persist( Map<Double, Double> samples, String path, String fileName, double start, double end,
                                double period ) {
 
