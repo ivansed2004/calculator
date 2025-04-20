@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.regex;
+package ru.ivan.commons.studvesna.interferogram.regex;
 
 import ru.ivan.commons.studvesna.interferogram.Unit;
 import java.util.Arrays;

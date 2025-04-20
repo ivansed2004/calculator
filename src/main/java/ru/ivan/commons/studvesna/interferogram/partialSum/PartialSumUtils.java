@@ -29,7 +29,7 @@ public class PartialSumUtils {
                 samples.put( arg, interferogram.evaluate(k, arg) );
                 arg += period;
             }
-            samples.put( end, interferogram.evaluate(k, arg) );
+            samples.put( end, interferogram.evaluate(k, end) );
 
             results.add(samples);
         }
@@ -38,6 +38,7 @@ public class PartialSumUtils {
 
     }
 
+    // Combine with the rest 'persist' functions.
     public static void persist( List<Map<Double, Double>> unitsSamples, String path, double start, double end, double period ) {
 
         int number = 0;
