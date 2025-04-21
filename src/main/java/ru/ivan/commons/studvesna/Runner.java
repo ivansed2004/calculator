@@ -89,7 +89,7 @@ public class Runner {
 
     private static void getAnalyticalFunctionPrinted( Interferogram interferogram, String targetPath, String fileName ) {
         String[] strings = InterferogramUtils.toStrings(interferogram);
-        InterferogramUtils.printInterferogram( strings, targetPath, fileName );
+        InterferogramUtils.printExpression( strings, targetPath, fileName );
     }
 
     // Fix the algorithms of analytical function strings forming

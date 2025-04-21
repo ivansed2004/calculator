@@ -131,7 +131,7 @@ public class InterferogramUtils {
 
     }
 
-    public static void printInterferogram( String[] strings, String path, String fileName ) {
+    public static void printExpression(String[] strings, String path, String fileName ) {
 
         try {
 
