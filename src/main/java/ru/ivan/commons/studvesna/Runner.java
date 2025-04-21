@@ -32,33 +32,36 @@ public class Runner {
     }
 
     private static void generateOutput() {
+        Frame frame = new Frame("Source files issue");
+        FileDialog fileDialog = new FileDialog( frame, "Select source files", FileDialog.LOAD );
+        fileDialog.setMultipleMode(true);
+        fileDialog.setVisible(true);
+
+        File[] filesToOpen = fileDialog.getFiles();
         Scanner scn = new Scanner( System.in );
         while (true) {
-
-            /*
             System.out.println("Start generating...");
-                for ( File file : filesToOpen ) {
+            for ( File file : filesToOpen ) {
 
-                    int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
-                    String targetPath = TARGET_DIRECTORY + SEP + String.format("%d", fileNum);
+                int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
+                String targetPath = TARGET_DIRECTORY + SEP + String.format("%d", fileNum);
 
-                    if ( Files.exists(Paths.get(targetPath)) ) {
-                        continue;
-                    }
-
-                    String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
-                    String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
-                    String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-
-                    List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
-                    Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
-                    getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                    getHyperbolaExpressions( interferogram );
-
-                    System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
-
+                if ( Files.exists(Paths.get(targetPath)) ) {
+                    continue;
                 }
-             */
+
+                String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
+                String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
+                String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+
+                List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
+                Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
+                getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
+                getHyperbolaExpressions( interferogram );
+
+                System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
+
+            }
 
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "y") ) {
@@ -66,6 +69,7 @@ public class Runner {
                 System.exit(0);
             }
 
+            frame.dispose();
         }
     }
 
