@@ -17,8 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static ru.ivan.commons.studvesna.environment.Environment.SEP;
-import static ru.ivan.commons.studvesna.environment.Environment.TARGET_DIRECTORY;
+import static ru.ivan.commons.studvesna.environment.Environment.*;
 
 public class Runner {
 
@@ -29,7 +28,7 @@ public class Runner {
     }
 
     private static void getTargetDirectory() throws Exception {
-        UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+        setSystemLookAndFeel();
 
         Frame frame = new Frame("Source files issue");
         JFileChooser fileChooser = new JFileChooser();
