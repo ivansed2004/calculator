@@ -7,6 +7,7 @@ import ru.ivan.commons.studvesna.splines.Spline;
 import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
 import ru.ivan.commons.studvesna.splines.SplineUtils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
@@ -27,8 +28,17 @@ public class Runner {
         generateOutput();
     }
 
-    private static void getTargetDirectory() {
+    private static void getTargetDirectory() throws Exception {
+        UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
 
+        Frame frame = new Frame("Source files issue");
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int userSelection = fileChooser.showOpenDialog(frame);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsolutePath();
+        }
     }
 
     private static void generateOutput() {
