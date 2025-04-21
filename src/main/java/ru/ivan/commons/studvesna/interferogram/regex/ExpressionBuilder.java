@@ -43,15 +43,14 @@ public class ExpressionBuilder {
 
     }
 
-    // If '-', make minus instead of plus.
     private String buildTrigSum( Unit[] units ) {
         String result = "";
 
         for ( int i = 0; i < units.length; i++ ) {
-            // consider use of the toString() value of Unit class
+            double A = units[i].getA();
             String s = String.format(
                     "%.3f%s(%.3fx)",
-                    units[i].getA(),
+                    Math.abs(A),
                     (units[i].isSIGMA()) ? "sin" : "cos",
                     units[i].getC()
             );
@@ -59,7 +58,7 @@ public class ExpressionBuilder {
             if (i == 0) {
                 result = result.concat(s);
             } else {
-                result = result.concat(" + ").concat(s);
+                result = result.concat( (A > 0) ? " + " : " - " ).concat(s);
             }
         }
 
