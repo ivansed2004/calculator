@@ -39,28 +39,4 @@ public class PartialSumUtils {
 
     }
 
-    // Combine with the rest 'persist' functions.
-    public static void persist( List<Map<Double, Double>> unitsSamples, String path, double start, double end, double period ) {
-
-        int number = 0;
-
-        for ( Map<Double, Double> samples : unitsSamples ) {
-            try ( FileWriter fw = new FileWriter(path + SEP + String.format("%d", number)) ) {
-                double count = Math.ceil((end - start) / period);
-                double arg = start;
-                for ( int i = 0; i < count; i++ ) {
-                    fw.write( String.format( "%.3f", arg ) + "\t" + String.format( "%.8f", samples.get(arg) ) );
-                    fw.write("\n");
-                    arg += period;
-                }
-                fw.write( String.format( "%.3f", end ) + "\t" + String.format( "%.8f", samples.get(end) ) );
-                fw.write("\n");
-                number++;
-            } catch (IOException ex) {
-                System.out.println("Error occurred while writing into the file: " + ex.getMessage());
-            }
-        }
-
-    }
-
 }
