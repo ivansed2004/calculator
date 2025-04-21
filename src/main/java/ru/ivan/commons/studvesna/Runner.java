@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
-import static ru.ivan.commons.studvesna.file.FileUtils.TARGET_DIRECTORY;
+import static ru.ivan.commons.studvesna.environment.Environment.SEP;
+import static ru.ivan.commons.studvesna.environment.Environment.TARGET_DIRECTORY;
 
 public class Runner {
 

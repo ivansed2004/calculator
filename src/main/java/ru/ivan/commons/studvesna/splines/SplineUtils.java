@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
+import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
 public class SplineUtils {
 

@@ -1,6 +1,6 @@
 package ru.ivan.commons.studvesna.interferogram;
 
-import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
+import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
 import ru.ivan.commons.studvesna.interferogram.regex.ExpressionBuilder;
 import ru.ivan.commons.studvesna.splines.Spline;

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
+import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
 public class PartialSumUtils {
 
