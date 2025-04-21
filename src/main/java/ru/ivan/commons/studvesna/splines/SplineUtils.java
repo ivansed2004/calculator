@@ -12,6 +12,7 @@ import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
 
 public class SplineUtils {
 
+    // Keep it always private!
     private SplineUtils() {}
 
     public static void performSampling( List<Spline> splines, double period ) {

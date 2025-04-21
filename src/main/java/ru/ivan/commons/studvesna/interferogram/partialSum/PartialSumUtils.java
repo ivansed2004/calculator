@@ -13,6 +13,7 @@ import static ru.ivan.commons.studvesna.file.FileUtils.SEP;
 
 public class PartialSumUtils {
 
+    // Keep it always private!
     private PartialSumUtils () {}
 
     public static List<Map<Double, Double>> performSampling( Interferogram interferogram, double start, double end, double period ) {

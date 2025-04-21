@@ -13,6 +13,7 @@ import java.util.*;
 
 public class InterferogramUtils {
 
+    // Keep it always private!
     private InterferogramUtils() {}
 
     public static Interferogram defineInterferogram( List<Spline> splines ) {

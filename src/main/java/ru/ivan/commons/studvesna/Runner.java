@@ -28,8 +28,7 @@ public class Runner {
     }
 
     private static void getTargetDirectory() {
-        // Default path
-        TARGET_DIRECTORY = "/home/ivan/Desktop/studvesna/part-2/target";
+
     }
 
     private static void generateOutput() {
