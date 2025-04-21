@@ -1,6 +1,7 @@
 package ru.ivan.commons.studvesna;
 
 import ru.ivan.commons.studvesna.hyperbola.HyperbolaBasedFunction;
+import ru.ivan.commons.studvesna.hyperbola.HyperbolaUtils;
 import ru.ivan.commons.studvesna.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
 import ru.ivan.commons.studvesna.splines.Spline;
@@ -62,13 +63,14 @@ public class Runner {
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                 String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                 Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
                 getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                getHyperbolaExpressions( interferogram );
+                getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
 
-                System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
+                System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
             }
 
@@ -82,9 +84,9 @@ public class Runner {
         }
     }
 
-    private static void getHyperbolaExpressions( Interferogram interferogram ) {
-        HyperbolaBasedFunction hbf = new HyperbolaBasedFunction( interferogram );
-        System.out.println( hbf );
+    private static void getHyperbolaExpressions( Interferogram interferogram, String targetPath, String fileName ) {
+        HyperbolaBasedFunction hyperbola = new HyperbolaBasedFunction( interferogram );
+        HyperbolaUtils.printExpression( hyperbola.toString(), targetPath, fileName );
     }
 
     private static void getAnalyticalFunctionPrinted( Interferogram interferogram, String targetPath, String fileName ) {
@@ -92,7 +94,6 @@ public class Runner {
         InterferogramUtils.printExpression( strings, targetPath, fileName );
     }
 
-    // Fix the algorithms of analytical function strings forming
     private static Interferogram getApproximatedInterferogram( List<Spline> splines, String targetPath, String fileName ) {
         double start = 1429.155;
         double end = 4000.092;
