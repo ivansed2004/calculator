@@ -7,7 +7,7 @@ import ru.ivan.commons.studvesna.splines.Spline;
 import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
 import ru.ivan.commons.studvesna.splines.SplineUtils;
 
-import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,50 +21,23 @@ import static ru.ivan.commons.studvesna.file.FileUtils.TARGET_DIRECTORY;
 
 public class Runner {
 
-    public static void main(String[] args) {
-        System.out.println("Select the target directory: ");
+    public static void main(String[] args) throws Exception {
         getTargetDirectory();
         System.out.println(TARGET_DIRECTORY);
-
-        System.out.println("Select the files you wish: ");
         generateOutput();
     }
 
     private static void getTargetDirectory() {
-        JFrame frame = new JFrame("File Manager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(640, 480);
-
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select the target directory");
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int userSelection = fileChooser.showOpenDialog(frame);
-
         // Default path
         TARGET_DIRECTORY = "/home/ivan/Desktop/studvesna/part-2/target";
-        if ( userSelection == JFileChooser.APPROVE_OPTION ) {
-            TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsoluteFile().getAbsolutePath();
-        }
     }
 
     private static void generateOutput() {
         Scanner scn = new Scanner( System.in );
         while (true) {
 
-            JFrame frame = new JFrame("File Manager");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(640, 480);
-
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Select files you wish");
-            fileChooser.setMultiSelectionEnabled(true);
-
-            int userSelection = fileChooser.showOpenDialog(frame);
-
-            if ( userSelection == JFileChooser.APPROVE_OPTION ) {
-                File[] filesToOpen = fileChooser.getSelectedFiles();
-                System.out.println("Start generating...");
+            /*
+            System.out.println("Start generating...");
                 for ( File file : filesToOpen ) {
 
                     int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
@@ -86,7 +59,7 @@ public class Runner {
                     System.out.printf("The directory for source file №%d has been generated.\n", fileNum);
 
                 }
-            }
+             */
 
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "y") ) {
