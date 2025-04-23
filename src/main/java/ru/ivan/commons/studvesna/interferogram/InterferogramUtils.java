@@ -68,7 +68,7 @@ public class InterferogramUtils {
     public static String[] toStrings(Interferogram interferogram) {
 
         ExpressionBuilder builder = new ExpressionBuilder(interferogram.getUNITS());
-        return builder.buildExpression();
+        return builder.build();
 
     }
 

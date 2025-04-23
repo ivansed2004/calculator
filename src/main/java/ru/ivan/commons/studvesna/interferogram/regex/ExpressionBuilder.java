@@ -11,7 +11,7 @@ public class ExpressionBuilder {
         this.UNITS = units;
     }
 
-    public String[] buildExpression() {
+    public String[] build() {
         return Arrays.stream(UNITS)
                 .map(this::buildPartialSumExpression)
                 .toArray( String[]::new );

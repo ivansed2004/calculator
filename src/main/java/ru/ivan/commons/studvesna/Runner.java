@@ -63,12 +63,12 @@ public class Runner {
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                 String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
+                //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                 Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
                 getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
+                //getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
 
                 System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
