@@ -17,7 +17,6 @@ public class InterferogramUtils {
     private InterferogramUtils() {}
 
     public static Interferogram defineInterferogram( List<Spline> splines ) {
-
         int SIZE = splines.size(); // N, where N - number of splines
         Unit[][] units = new Unit[10][SIZE+1];
 
@@ -62,14 +61,11 @@ public class InterferogramUtils {
         }
 
         return new Interferogram(units);
-
     }
 
     public static String[] toStrings(Interferogram interferogram) {
-
         ExpressionBuilder builder = new ExpressionBuilder(interferogram.getUNITS());
         return builder.build();
-
     }
 
     private static List<Double> getIntLimits(List<Spline> splines) {
@@ -82,7 +78,6 @@ public class InterferogramUtils {
     }
 
     public static Map<Double, Double> performSampling( Interferogram interferogram, double start, double end, double period ) {
-
         Map<Double, Double> samples = new HashMap<>();
 
         double count = Math.ceil((end - start) / period);
@@ -95,13 +90,11 @@ public class InterferogramUtils {
         samples.put(end, interferogram.getValue(end));
 
         return samples;
-
     }
 
     // Combine with 'persist' in 'splines'.
     public static void persist( Map<Double, Double> samples, String path, String fileName, double start, double end,
                                double period ) {
-
         try {
 
             Path directory = Paths.get( path );
@@ -128,11 +121,9 @@ public class InterferogramUtils {
         } catch (IOException ex) {
             System.out.println("Error occurred while writing into the file: " + ex.getMessage());
         }
-
     }
 
     public static void printExpression(String[] strings, String path, String fileName ) {
-
         try {
 
             Path directory = Paths.get( path );
@@ -159,7 +150,6 @@ public class InterferogramUtils {
         } catch (IOException ex) {
             System.out.println("Error occurred while writing into the file: " + ex.getMessage());
         }
-
     }
 
 }

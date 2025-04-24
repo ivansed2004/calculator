@@ -37,7 +37,7 @@ public class Interferogram {
         int i = 0;
         for ( Unit[] units : UNITS ) {
             Double value = Arrays.stream(units)
-                    .map( u -> Math.abs(Math.round( u.getA()*1000 ) / 1000.0) )
+                    .map( u -> Math.abs(Math.round( u.getA()*1000.0 ) / 1000.0) )
                     .reduce(0.0, Double::sum);
             result[i] = String.format("%.8f", value);
             i++;
@@ -50,11 +50,13 @@ public class Interferogram {
         for ( int i : ints ) {
             if ( !UNITS[i][0].isSIGMA() ) {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
-                    v += UNITS[i][j].getA() * Math.cos(UNITS[i][j].getC() * arg);
+                    double A = Math.round( UNITS[i][j].getA()*1000.0 ) / 1000.0;
+                    v += A * Math.cos(UNITS[i][j].getC() * arg);
                 }
             } else {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
-                    v += UNITS[i][j].getA()*Math.sin(UNITS[i][j].getC()*arg);
+                    double A = Math.round( UNITS[i][j].getA()*1000.0 ) / 1000.0;
+                    v += A * Math.sin(UNITS[i][j].getC() * arg);
                 }
             }
         }

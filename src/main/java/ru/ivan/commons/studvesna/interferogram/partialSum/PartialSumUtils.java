@@ -10,21 +10,19 @@ public class PartialSumUtils {
     // Keep it always private!
     private PartialSumUtils () {}
 
-    public static Map<Double, Double> performSampling( Interferogram interferogram, double start, double end, double period, int[] k ) {
-
+    public static Map<Double, Double> performSampling( Interferogram interferogram, double start, double stop,
+                                                       double inc, double ext, double areaInc, int[] k ) {
         Map<Double, Double> results = new HashMap<>();
 
-        double count = Math.ceil((end - start) / period);
-
-        double arg = start;
-        for ( int i = 0; i < count; i++ ) {
-            results.put( arg, interferogram.evaluate(k, arg) );
-            arg += period;
+        double center = start;
+        while ( center <= stop ) {
+            for ( double arg = center-ext; arg <= center+ext; arg += areaInc ) {
+                results.put( arg, interferogram.evaluate(k, arg) );
+            }
+            center += inc;
         }
-        results.put( end, interferogram.evaluate(k, end) );
 
         return results;
-
     }
 
 }
