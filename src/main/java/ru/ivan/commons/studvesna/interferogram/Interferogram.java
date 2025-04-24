@@ -50,13 +50,11 @@ public class Interferogram {
         for ( int i : ints ) {
             if ( !UNITS[i][0].isSIGMA() ) {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
-                    double A = Math.round( UNITS[i][j].getA()*1000.0 ) / 1000.0;
-                    v += A * Math.cos(UNITS[i][j].getC() * arg);
+                    v += UNITS[i][j].getA() * Math.cos(UNITS[i][j].getC() * arg);
                 }
             } else {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
-                    double A = Math.round( UNITS[i][j].getA()*1000.0 ) / 1000.0;
-                    v += A * Math.sin(UNITS[i][j].getC() * arg);
+                    v += UNITS[i][j].getA() * Math.sin(UNITS[i][j].getC() * arg);
                 }
             }
         }
