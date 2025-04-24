@@ -4,7 +4,6 @@ import ru.ivan.commons.studvesna.hyperbola.HyperbolaBasedFunction;
 import ru.ivan.commons.studvesna.hyperbola.HyperbolaUtils;
 import ru.ivan.commons.studvesna.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
-import ru.ivan.commons.studvesna.interferogram.partialSum.PartialSumUtils;
 import ru.ivan.commons.studvesna.splines.Spline;
 import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
 import ru.ivan.commons.studvesna.splines.SplineUtils;
@@ -63,24 +62,18 @@ public class Runner {
 
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
-                //String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-                //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
+                String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                 Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
-                Object[] max = PartialSumUtils.performSampling(interferogram, 0.00104282, 0.00104282, 0.00104282,
-                        0.00104282 / 2, 0.00104282 / 256, new int[]{1, 2}).values().toArray();
-                for (Object o : max) {
-                    System.out.println(o);
-                }
-                //getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                //getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
+                getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
+                getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
 
-                //System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
+                System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
             }
-            System.exit(0);
-            /*
+
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "y") ) {
                 scn.close();
@@ -88,7 +81,7 @@ public class Runner {
             }
 
             frame.dispose();
-            */
+
         }
     }
 
