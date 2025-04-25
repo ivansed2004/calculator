@@ -11,14 +11,11 @@ public class Interferogram {
 
     private final String MATRIX;
 
-    private final String[] MAX_AMPLITUDES;
-
     // Immediately or on demand?
     public Interferogram( Unit[][] results ) {
         this.UNITS = results;
         this.COMBINED_UNITS = getCombinedPartialSums();
         this.MATRIX = calculateMatrix();
-        this.MAX_AMPLITUDES = calculateMaxAmplitudes();
     }
 
     private String calculateMatrix() {
@@ -32,19 +29,6 @@ public class Interferogram {
                     )
             );
             result = result.concat("\n");
-        }
-        return result;
-    }
-
-    private String[] calculateMaxAmplitudes() {
-        String[] result = new String[10];
-        int i = 0;
-        for ( Unit[] units : UNITS ) {
-            Double value = Arrays.stream(units)
-                    .map( u -> Math.abs(Math.round( u.getA()*1000.0 ) / 1000.0) )
-                    .reduce(0.0, Double::sum);
-            result[i] = String.format("%.8f", value);
-            i++;
         }
         return result;
     }
@@ -129,10 +113,6 @@ public class Interferogram {
 
     public Unit[][] getCOMBINED_UNITS() {
         return COMBINED_UNITS;
-    }
-
-    public String[] getMAX_AMPLITUDES() {
-        return MAX_AMPLITUDES;
     }
 
     @Override
