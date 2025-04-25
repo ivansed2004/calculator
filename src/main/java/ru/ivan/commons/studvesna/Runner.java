@@ -4,7 +4,6 @@ import ru.ivan.commons.studvesna.hyperbola.HyperbolaBasedFunction;
 import ru.ivan.commons.studvesna.hyperbola.HyperbolaUtils;
 import ru.ivan.commons.studvesna.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
-import ru.ivan.commons.studvesna.interferogram.Unit;
 import ru.ivan.commons.studvesna.splines.Spline;
 import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
 import ru.ivan.commons.studvesna.splines.SplineUtils;
@@ -14,9 +13,9 @@ import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static ru.ivan.commons.studvesna.environment.Environment.*;
@@ -64,20 +63,17 @@ public class Runner {
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                 String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-                //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
+                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                 Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
                 getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                //getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
+                getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
 
                 System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
             }
 
-            System.exit(0);
-
-            /*
             System.out.println("Do you wish to terminate the program?");
             if ( Objects.equals(scn.nextLine(), "y") ) {
                 scn.close();
@@ -85,7 +81,6 @@ public class Runner {
             }
 
             frame.dispose();
-            */
         }
     }
 
