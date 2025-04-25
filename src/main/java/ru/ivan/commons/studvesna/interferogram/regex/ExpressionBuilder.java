@@ -32,12 +32,13 @@ public class ExpressionBuilder {
         return result;
     }
 
+    // Fix the case with Math.sin(arg) and Math.cos(arg)
     private Unit[] cutNullUnits( Unit[] units ) {
 
         return Arrays.stream(units).filter( unit -> {
             double amp = unit.getA();
             double arg = unit.getC();
-            return (Math.abs(amp) >= 0.001) &&
+            return ( Math.abs(amp) >= 0.001 ) &&
                     ((unit.isSIGMA() && Math.sin(arg) != 0) || (!unit.isSIGMA() && Math.cos(arg) != 0) );
         } ).toArray( Unit[]::new );
 
@@ -56,7 +57,7 @@ public class ExpressionBuilder {
             );
 
             if (i == 0) {
-                result = result.concat(s);
+                result = result.concat( (A < 0) ? "-" : "" ).concat(s);
             } else {
                 result = result.concat( (A > 0) ? " + " : " - " ).concat(s);
             }

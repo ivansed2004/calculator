@@ -15,13 +15,8 @@ public class HyperbolaBasedFunction {
     }
 
     private String buildExpression() {
-        String pattern = "%f/x^4 + " +
-                         "%f/x^3 + %f/x^3 + " +
-                         "%f/x^2 + %f/x^2 + %f/x^2 + " +
-                         "%f/x + %f/x + %f/x + %f/x";
-
-        return String.format( pattern, AMPLITUDES[0], AMPLITUDES[1], AMPLITUDES[2], AMPLITUDES[3], AMPLITUDES[4],
-                AMPLITUDES[5], AMPLITUDES[6], AMPLITUDES[7], AMPLITUDES[8], AMPLITUDES[9] );
+        String pattern = "%f/x^4 + %f/x^3 + %f/x^2 + %f/x";
+        return String.format( pattern, AMPLITUDES[0], AMPLITUDES[1], AMPLITUDES[2], AMPLITUDES[3] );
     }
 
     private double[] getHyperbolaCoefficients( Interferogram interferogram, int a ) {
@@ -30,17 +25,17 @@ public class HyperbolaBasedFunction {
         double s2 = 0.0709894 + a*t;
         double e1 = 0.0942738 + a*t;
         double e2 = 0.0985998 + a*t;
-        double period = 0.0001;
+        double period = 0.00001;
 
-        double[] results = new double[10];
+        double[] results = new double[4];
 
-        for ( int i = 0; i < 10; i++ ) {
-            double res1 = PartialSumUtils.performSampling( interferogram, s1, e1, period, new int[]{i} )
+        for ( int i = 0; i < 4; i++ ) {
+            double res1 = PartialSumUtils.performSampling( interferogram, s1, e1, period, i )
                     .values()
                     .stream()
                     .max( Double::compareTo )
                     .get();
-            double res2 = PartialSumUtils.performSampling( interferogram, s2, e2, period, new int[]{i} )
+            double res2 = PartialSumUtils.performSampling( interferogram, s2, e2, period, i )
                     .values()
                     .stream()
                     .max( Double::compareTo )

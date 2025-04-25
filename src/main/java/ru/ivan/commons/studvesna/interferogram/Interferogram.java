@@ -1,10 +1,13 @@
 package ru.ivan.commons.studvesna.interferogram;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Interferogram {
 
     private final Unit[][] UNITS;
+
+    private final Unit[][] COMBINED_UNITS;
 
     private final String MATRIX;
 
@@ -13,6 +16,7 @@ public class Interferogram {
     // Immediately or on demand?
     public Interferogram( Unit[][] results ) {
         this.UNITS = results;
+        this.COMBINED_UNITS = getCombinedPartialSums();
         this.MATRIX = calculateMatrix();
         this.MAX_AMPLITUDES = calculateMaxAmplitudes();
     }
@@ -23,7 +27,7 @@ public class Interferogram {
             result = result.concat(
                     Arrays.toString(
                             Arrays.stream(units)
-                                    .map( u -> String.format("%.3f", Math.round( u.getA()*1000 ) / 1000.0) )
+                                    .map( u -> String.format("%.3f", u.getA()) )
                                     .toArray()
                     )
             );
@@ -45,9 +49,49 @@ public class Interferogram {
         return result;
     }
 
-    public double evaluate( int[] ints, double arg ) {
+    private Unit[][] getCombinedPartialSums() {
+        Unit[][] newUnits = new Unit[4][ UNITS[0].length ];
+        newUnits[0] = combinePartialSumsFrom( new int[]{0} );
+        newUnits[1] = combinePartialSumsFrom( new int[]{1, 2} );
+        newUnits[2] = combinePartialSumsFrom( new int[]{3, 4, 5} );
+        newUnits[3] = combinePartialSumsFrom( new int[]{6, 7, 8, 9} );
+        return newUnits;
+    }
+
+    private Unit[] combinePartialSumsFrom( int[] psn ) {
+        int size = UNITS[0].length;
+        Unit[] newUnit = new Unit[size];
+        for ( int i = 0; i < size; i++ ) {
+            double newAmp = 0;
+            for ( int n : psn ) {
+                newAmp += Math.round( 1000.0*UNITS[n][i].getA() ) / 1000.0;
+            }
+            newUnit[i] = new Unit( newAmp,
+                    UNITS[psn[0]][i].getC(), UNITS[psn[0]][i].getN(), UNITS[psn[0]][i].isSIGMA() );
+        }
+        return newUnit;
+    }
+
+    public Double getValue(Double arg) {
+        double value = 0.0d;
+
+        value += evaluate( 0, arg, "default" ) / Math.pow(arg, 4);
+        value += evaluate( 1, arg, "default" ) / Math.pow(arg, 3);
+        value += evaluate( 2, arg, "default" ) / Math.pow(arg, 3);
+        value += evaluate( 3, arg, "default" ) / Math.pow(arg, 2);
+        value += evaluate( 4, arg, "default" ) / Math.pow(arg, 2);
+        value += evaluate( 5, arg, "default" ) / Math.pow(arg, 2);
+        value += evaluate( 6, arg, "default" ) / Math.pow(arg, 1);
+        value += evaluate( 7, arg, "default" ) / Math.pow(arg, 1);
+        value += evaluate( 8, arg, "default" ) / Math.pow(arg, 1);
+        value += evaluate( 9, arg, "default" ) / Math.pow(arg, 1);
+
+        return value;
+    }
+
+    public double evaluate( int i, double arg, String mode ) {
         double v = 0.0d;
-        for ( int i : ints ) {
+        if ( Objects.equals(mode, "default") ) {
             if ( !UNITS[i][0].isSIGMA() ) {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
                     v += UNITS[i][j].getA() * Math.cos(UNITS[i][j].getC() * arg);
@@ -55,6 +99,16 @@ public class Interferogram {
             } else {
                 for ( int j = 0; j < UNITS[0].length; j++ ) {
                     v += UNITS[i][j].getA() * Math.sin(UNITS[i][j].getC() * arg);
+                }
+            }
+        } else if ( Objects.equals(mode, "combined") ) {
+            if ( !COMBINED_UNITS[i][0].isSIGMA() ) {
+                for ( int j = 0; j < COMBINED_UNITS[0].length; j++ ) {
+                    v += COMBINED_UNITS[i][j].getA() * Math.cos(COMBINED_UNITS[i][j].getC() * arg);
+                }
+            } else {
+                for ( int j = 0; j < COMBINED_UNITS[0].length; j++ ) {
+                    v += COMBINED_UNITS[i][j].getA() * Math.sin(COMBINED_UNITS[i][j].getC() * arg);
                 }
             }
         }
@@ -65,19 +119,12 @@ public class Interferogram {
         return UNITS;
     }
 
-    public String[] getMAX_AMPLITUDES() {
-        return MAX_AMPLITUDES;
+    public Unit[][] getCOMBINED_UNITS() {
+        return COMBINED_UNITS;
     }
 
-    public Double getValue(Double arg) {
-        double value = 0.0d;
-
-        value += evaluate( new int[]{0}, arg ) / Math.pow(arg, 4);
-        value += evaluate( new int[]{1, 2}, arg ) / Math.pow(arg, 3);
-        value += evaluate( new int[]{3, 4, 5}, arg ) / Math.pow(arg, 2);
-        value += evaluate( new int[]{6, 7, 8, 9}, arg ) / Math.pow(arg, 1);
-
-        return value;
+    public String[] getMAX_AMPLITUDES() {
+        return MAX_AMPLITUDES;
     }
 
     @Override
