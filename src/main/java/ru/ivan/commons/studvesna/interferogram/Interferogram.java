@@ -72,19 +72,27 @@ public class Interferogram {
         return newUnit;
     }
 
-    public Double getValue(Double arg) {
+    public Double getValue(Double arg, String mode) {
         double value = 0.0d;
 
-        value += evaluate( 0, arg, "default" ) / Math.pow(arg, 4);
-        value += evaluate( 1, arg, "default" ) / Math.pow(arg, 3);
-        value += evaluate( 2, arg, "default" ) / Math.pow(arg, 3);
-        value += evaluate( 3, arg, "default" ) / Math.pow(arg, 2);
-        value += evaluate( 4, arg, "default" ) / Math.pow(arg, 2);
-        value += evaluate( 5, arg, "default" ) / Math.pow(arg, 2);
-        value += evaluate( 6, arg, "default" ) / Math.pow(arg, 1);
-        value += evaluate( 7, arg, "default" ) / Math.pow(arg, 1);
-        value += evaluate( 8, arg, "default" ) / Math.pow(arg, 1);
-        value += evaluate( 9, arg, "default" ) / Math.pow(arg, 1);
+        for ( int i = 0; i < 10; i++ ) {
+            if (Objects.equals(mode, "default")) {
+                if ( i == 0 ) {
+                    value += evaluate( i, arg, "default" ) / Math.pow(arg, 4);
+                } else if ( i <= 2 ) {
+                    value += evaluate( i, arg, "default" ) / Math.pow(arg, 3);
+                } else if ( i <= 5) {
+                    value += evaluate( i, arg, "default" ) / Math.pow(arg, 2);
+                } else {
+                    value += evaluate( i, arg, "default" ) / Math.pow(arg, 1);
+                }
+            } else {
+                value += evaluate( i, arg, "combined" ) / Math.pow(arg, 4);
+                value += evaluate( i, arg, "combined" ) / Math.pow(arg, 3);
+                value += evaluate( i, arg, "combined" ) / Math.pow(arg, 2);
+                value += evaluate( i, arg, "combined" ) / Math.pow(arg, 1);
+            }
+        }
 
         return value;
     }

@@ -64,7 +64,7 @@ public class InterferogramUtils {
     }
 
     public static String[] toStrings(Interferogram interferogram) {
-        ExpressionBuilder builder = new ExpressionBuilder(interferogram.getUNITS());
+        ExpressionBuilder builder = new ExpressionBuilder(interferogram.getCOMBINED_UNITS());
         return builder.build();
     }
 
@@ -84,10 +84,10 @@ public class InterferogramUtils {
 
         double arg = start;
         for ( int i = 0; i < count; i++ ) {
-            samples.put(arg, interferogram.getValue(arg));
+            samples.put(arg, interferogram.getValue(arg, "default"));
             arg += period;
         }
-        samples.put(end, interferogram.getValue(end));
+        samples.put(end, interferogram.getValue(end, "default"));
 
         return samples;
     }
