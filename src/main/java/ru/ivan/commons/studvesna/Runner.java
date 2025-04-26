@@ -63,12 +63,14 @@ public class Runner {
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                 String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+                String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
                 String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 List<Spline> splines = getApproximatedSpectrum( file, targetPath, spectrumDiscreteFilename );
                 Interferogram interferogram = getApproximatedInterferogram( splines, targetPath, interferogramDiscreteFilename );
-                getAnalyticalFunctionPrinted( interferogram, targetPath, interferogramAnalyticalFilename );
-                getHyperbolaExpressions( interferogram, targetPath, hyperbolaAnalyticalFilename );
+                getInterferogramExpression( interferogram, targetPath, interferogramAnalyticalFilename );
+                HyperbolaBasedFunction hyperbola = getApproximatedHyperbola( interferogram, targetPath, hyperbolaDiscreteFilename );
+                getHyperbolaExpression( hyperbola, targetPath, hyperbolaAnalyticalFilename );
 
                 System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
@@ -84,12 +86,24 @@ public class Runner {
         }
     }
 
-    private static void getHyperbolaExpressions( Interferogram interferogram, String targetPath, String fileName ) {
-        HyperbolaBasedFunction hyperbola = new HyperbolaBasedFunction( interferogram );
+    private static void getHyperbolaExpression( HyperbolaBasedFunction hyperbola, String targetPath, String fileName ) {
         HyperbolaUtils.printExpression( hyperbola.toString(), targetPath, fileName );
     }
 
-    private static void getAnalyticalFunctionPrinted( Interferogram interferogram, String targetPath, String fileName ) {
+    // Unify the math objects creation.
+    private static HyperbolaBasedFunction getApproximatedHyperbola( Interferogram interferogram, String targetPath, String fileName ) {
+        double start = 1429.155;
+        double end = 4000.092;
+        double period = 1.929;
+
+        HyperbolaBasedFunction hyperbola = new HyperbolaBasedFunction( interferogram );
+        Map<Double, Double> samples = HyperbolaUtils.performSampling( hyperbola, start, end, period );
+        HyperbolaUtils.persist( samples, targetPath, fileName, start, end, period );
+
+        return hyperbola;
+    }
+
+    private static void getInterferogramExpression(Interferogram interferogram, String targetPath, String fileName ) {
         String[] strings = InterferogramUtils.toStrings(interferogram);
         InterferogramUtils.printExpression( strings, targetPath, fileName );
     }
@@ -99,7 +113,7 @@ public class Runner {
         double end = 4000.092;
         double period = 1.929;
 
-        Interferogram interferogram = InterferogramUtils.defineInterferogram(splines);
+        Interferogram interferogram = InterferogramUtils.derive(splines);
         Map<Double, Double> samples = InterferogramUtils.performSampling( interferogram, start, end, period );
         InterferogramUtils.persist( samples, targetPath, fileName, start, end, period );
 

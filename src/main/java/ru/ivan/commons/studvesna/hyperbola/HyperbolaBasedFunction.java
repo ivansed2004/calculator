@@ -14,6 +14,13 @@ public class HyperbolaBasedFunction {
         this.EXPRESSION = buildExpression();
     }
 
+    public double getValue( double arg ) {
+        return AMPLITUDES[0]/Math.pow(arg, 4) +
+                AMPLITUDES[1]/Math.pow(arg, 3) +
+                AMPLITUDES[2]/Math.pow(arg, 2) +
+                AMPLITUDES[3]/Math.pow(arg, 1);
+    }
+
     private String buildExpression() {
         String pattern = "%f/x^4 + %f/x^3 + %f/x^2 + %f/x";
         return String.format( pattern, AMPLITUDES[0], AMPLITUDES[1], AMPLITUDES[2], AMPLITUDES[3] );

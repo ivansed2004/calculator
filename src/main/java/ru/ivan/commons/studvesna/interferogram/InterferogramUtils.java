@@ -16,7 +16,7 @@ public class InterferogramUtils {
     // Keep it always private!
     private InterferogramUtils() {}
 
-    public static Interferogram defineInterferogram( List<Spline> splines ) {
+    public static Interferogram derive( List<Spline> splines ) {
         int SIZE = splines.size(); // N, where N - number of splines
         Unit[][] units = new Unit[10][SIZE+1];
 
@@ -92,7 +92,7 @@ public class InterferogramUtils {
         return samples;
     }
 
-    // Combine with 'persist' in 'splines'.
+    // Combine with 'persist', 'splines' and 'hyperbola'
     public static void persist( Map<Double, Double> samples, String path, String fileName, double start, double end,
                                double period ) {
         try {
