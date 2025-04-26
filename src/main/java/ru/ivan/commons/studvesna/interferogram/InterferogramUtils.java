@@ -2,7 +2,6 @@ package ru.ivan.commons.studvesna.interferogram;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
-import ru.ivan.commons.studvesna.interferogram.regex.ExpressionBuilder;
 import ru.ivan.commons.studvesna.splines.Spline;
 import java.io.FileWriter;
 import java.io.IOException;

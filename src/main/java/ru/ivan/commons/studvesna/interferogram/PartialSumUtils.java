@@ -1,6 +1,4 @@
-package ru.ivan.commons.studvesna.interferogram.partialSum;
-
-import ru.ivan.commons.studvesna.interferogram.Interferogram;
+package ru.ivan.commons.studvesna.interferogram;
 
 import java.util.HashMap;
 import java.util.Map;

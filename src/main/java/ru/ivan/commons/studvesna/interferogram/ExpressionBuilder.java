@@ -1,6 +1,5 @@
-package ru.ivan.commons.studvesna.interferogram.regex;
+package ru.ivan.commons.studvesna.interferogram;
 
-import ru.ivan.commons.studvesna.interferogram.Unit;
 import java.util.Arrays;
 
 public class ExpressionBuilder {
