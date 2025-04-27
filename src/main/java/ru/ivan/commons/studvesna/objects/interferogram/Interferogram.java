@@ -46,7 +46,7 @@ public class Interferogram extends MathObject {
     }
 
     public void addPattern( String pattern ) {
-        this.PATTERNS.add( pattern);
+        this.PATTERNS.add( pattern );
     }
 
     public List<String> getPatterns() {

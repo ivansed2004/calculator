@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
@@ -15,63 +17,46 @@ public class SplineUtils {
     // Keep it always private!
     private SplineUtils() {}
 
-    public static void performSampling( List<Spline> splines, double period ) {
+    public static Map<Double, Double> performSampling( SplineBasedFunction function, double period ) {
+        Map<Double, Double> results = new HashMap<>();
 
         int temp = 0;
-        for ( Spline spline: splines ) {
+        for ( Spline spline: function.getSPLINES() ) {
+            double count = (spline.getEND() - spline.getSTART()) / period;
 
-            double count = (spline.getEnd() - spline.getStart()) / period;
-
-            List<Double> waveNumbers = new ArrayList<>();
-            List<Double> intensities = new ArrayList<>();
-
-            double sample = spline.getStart();
+            double arg = spline.getSTART();
             for ( int i = 0; i < count; i++ ) {
-                double formula = spline.getA0() + spline.getA1()*sample + spline.getA2()*Math.pow(sample, 2) + spline.getA3()*Math.pow(sample, 3);
-                waveNumbers.add( sample );
-                intensities.add( formula );
-                sample += period;
+                results.put( arg, spline.getValue(arg) );
+                arg += period;
             }
-
-            if ( temp == splines.size() - 1 ) {
-                sample = spline.getEnd();
-                double formula = spline.getA0() + spline.getA1()*sample + spline.getA2()*Math.pow(sample, 2) + spline.getA3()*Math.pow(sample, 3);
-                waveNumbers.add( sample );
-                intensities.add( formula );
+            if ( temp == function.getSPLINES().size() - 1 ) {
+                arg = spline.getEND();
+                results.put( arg, spline.getValue(arg) );
             }
-
-            spline.setWaveNumbers( waveNumbers );
-            spline.setIntensities( intensities );
 
             temp++;
-
         }
 
+        return results;
     }
 
-    public static void persist( List<Spline> splines, String path, String fileName ) {
+    public static void persist( Map<Double, Double> samples, String path, String fileName ) {
 
         try {
-
             Path directory = Paths.get( path );
             Path filePath = directory.resolve( fileName );
             Files.createDirectories( directory );
             Files.createFile( filePath );
-
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating spectrum_discrete file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating spectrum_discrete file. : " + ex.getMessage());
         }
 
         try ( FileWriter fw = new FileWriter( path + SEP + fileName ) ) {
-            for ( Spline s : splines ) {
-                List<Double> wn = s.getWaveNumbers();
-                List<Double> its = s.getIntensities();
-                for ( int i = 0; i < wn.size(); i++ ) {
-                    fw.write( String.format( "%.3f", wn.get(i) ) + "\t" + String.format( "%.8f", its.get(i) ) );
-                    fw.write("\n");
-                }
+            List<Double> args = samples.keySet().stream().sorted().collect(Collectors.toList());
+            for ( double arg : args ) {
+                fw.write( String.format( "%.3f", arg ) + "\t" + String.format( "%.8f", samples.get(arg) ) );
+                fw.write("\n");
             }
-
         } catch ( IOException ex ) {
             System.out.println("Error occurred while writing into the file. " + ex.getMessage());
         }

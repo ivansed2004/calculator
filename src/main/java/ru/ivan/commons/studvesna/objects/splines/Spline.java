@@ -1,136 +1,90 @@
 package ru.ivan.commons.studvesna.objects.splines;
 
+import ru.ivan.commons.studvesna.api.MathObject;
+
 import java.util.List;
-import java.util.Objects;
 
-public class Spline {
+public class Spline extends MathObject {
 
-    private Double start;
+    private final double START;
 
-    private Double end;
+    private final double END;
 
-    private Double a0;
+    private double A0;
 
-    private Double a1;
+    private double A1;
 
-    private Double a2;
+    private double A2;
 
-    private Double a3;
+    private double A3;
 
-    private List<Double> waveNumbers;
-
-    private List<Double> intensities;
-
-    public Spline(Double start, Double end, Double a0, Double a1, Double a2, Double a3) {
-        this.start = start;
-        this.end = end;
-        this.a0 = a0;
-        this.a1 = a1;
-        this.a2 = a2;
-        this.a3 = a3;
+    public Spline( double start, double end, double a0, double a1, double a2, double a3 ) {
+        this.START = start;
+        this.END = end;
+        this.A0 = a0;
+        this.A1 = a1;
+        this.A2 = a2;
+        this.A3 = a3;
     }
 
     public Spline(Double start, Double end) {
         this( start, end, 0d, 0d, 0d, 0d );
     }
 
-    public Double getStart() {
-        return start;
+    public double getValue( double arg ) {
+        if ( !(arg >= START && arg <= END) ) {
+            return 0.0d;
+        }
+        return A3*Math.pow(arg, 3) + A2*Math.pow(arg, 2) + A1*Math.pow(arg, 1) + A0;
     }
 
-    public void setStart(Double start) {
-        this.start = start;
+    public List<String> getPatterns() {
+        return List.of( "%.3fx^3 + %.3fx^2 + %.3fx + %.3f, [%.3f; %.3f]" );
     }
 
-    public Double getEnd() {
-        return end;
+    public double getSTART() {
+        return START;
     }
 
-    public void setEnd(Double end) {
-        this.end = end;
+    public double getEND() {
+        return END;
     }
 
-    public Double getA0() {
-        return a0;
+    public double getA0() {
+        return A0;
     }
 
-    public void setA0(Double a0) {
-        this.a0 = a0;
+    public void setA0(double a0) {
+        this.A0 = a0;
     }
 
-    public Double getA1() {
-        return a1;
+    public double getA1() {
+        return A1;
     }
 
-    public void setA1(Double a1) {
-        this.a1 = a1;
+    public void setA1(double a1) {
+        this.A1 = a1;
     }
 
-    public Double getA2() {
-        return a2;
+    public double getA2() {
+        return A2;
     }
 
-    public void setA2(Double a2) {
-        this.a2 = a2;
+    public void setA2(double a2) {
+        this.A2 = a2;
     }
 
-    public Double getA3() {
-        return a3;
+    public double getA3() {
+        return A3;
     }
 
-    public void setA3(Double a3) {
-        this.a3 = a3;
-    }
-
-    public List<Double> getWaveNumbers() {
-        return waveNumbers;
-    }
-
-    public void setWaveNumbers(List<Double> waveNumbers) {
-        this.waveNumbers = waveNumbers;
-    }
-
-    public List<Double> getIntensities() {
-        return intensities;
-    }
-
-    public void setIntensities(List<Double> intensities) {
-        this.intensities = intensities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        Spline spline = (Spline) o;
-        if (this == spline) return true;
-        if (!(spline instanceof Spline)) return false;
-
-        if (!Objects.equals(start, spline.start)) return false;
-        if (!Objects.equals(end, spline.end)) return false;
-        if (!Objects.equals(a0, spline.a0)) return false;
-        if (!Objects.equals(a1, spline.a1)) return false;
-        if (!Objects.equals(a2, spline.a2)) return false;
-        return Objects.equals(a3, spline.a3);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = start != null ? start.hashCode() : 0;
-        result = 31 * result + (end != null ? end.hashCode() : 0);
-        result = 31 * result + (a0 != null ? a0.hashCode() : 0);
-        result = 31 * result + (a1 != null ? a1.hashCode() : 0);
-        result = 31 * result + (a2 != null ? a2.hashCode() : 0);
-        result = 31 * result + (a3 != null ? a3.hashCode() : 0);
-        return result;
+    public void setA3(double a3) {
+        this.A3 = a3;
     }
 
     @Override
     public String toString() {
-        String interval = "Interval = [" + this.start + "; " + this.end + "]\n";
-        String a = "a0 = " + this.a0 + ";\n";
-        String b = "a1 = " + this.a1 + ";\n";
-        String c = "a2 = " + this.a2 + ";\n";
-        String d = "a3 = " + this.a3 + ".\n";
-        return "[Spline description]\n" + interval + a + b + c + d;
+        return String.format( "%.3fx^3 + %.3fx^2 + %.3fx + %.3f, [%.3f; %.3f]", A3, A2, A1, A0, START, END );
     }
 
 }

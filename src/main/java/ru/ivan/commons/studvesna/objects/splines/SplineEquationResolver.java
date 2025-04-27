@@ -11,7 +11,7 @@ import java.util.*;
 public class SplineEquationResolver {
 
     // This method should be public only
-    public static List<Spline> resolve( File file, int period ) {
+    public static SplineBasedFunction resolve( File file, int period ) {
 
         List<Double> X = new ArrayList<>();
         List<Double> Y = new ArrayList<>();
@@ -54,10 +54,49 @@ public class SplineEquationResolver {
                 .mapToDouble( Double::doubleValue )
                 .toArray();
 
-        RealVector solution = SplineEquationResolver.resolveSplineEquation( vectorX, vectorY );
+        RealVector solution = resolveSplineEquation( vectorX, vectorY );
         double[] answers = solution.toArray();
 
-        return getResultSplines( X, answers );
+        return new SplineBasedFunction( getResultSplines( X, answers ), new ArrayList<>() );
+
+    }
+
+    private static List<Spline> getResultSplines( List<Double> vectorX, double[] answers ) {
+
+        List<Spline> splines = new ArrayList<>();
+
+        for ( int i = 1; i < vectorX.size(); i++ ) {
+            Spline s = new Spline( vectorX.get(i - 1), vectorX.get(i) );
+            splines.add( s );
+        }
+
+        int i = 0;
+        int j = 0;
+        for ( double value : answers ) {
+            if ( j == 4 ) {
+                j = 0;
+                i++;
+            }
+
+            switch (j) {
+                case 0:
+                    splines.get(i).setA0( value );
+                    break;
+                case 1:
+                    splines.get(i).setA1( value );
+                    break;
+                case 2:
+                    splines.get(i).setA2( value );
+                    break;
+                case 3:
+                    splines.get(i).setA3( value );
+                    break;
+            }
+
+            j++;
+        }
+
+        return splines;
 
     }
 
@@ -157,45 +196,6 @@ public class SplineEquationResolver {
         }
 
         return result;
-
-    }
-
-    private static List<Spline> getResultSplines( List<Double> vectorX, double[] answers ) {
-
-        List<Spline> splines = new ArrayList<>();
-
-        for ( int i = 1; i < vectorX.size(); i++ ) {
-            Spline s = new Spline( vectorX.get(i - 1), vectorX.get(i) );
-            splines.add( s );
-        }
-
-        int i = 0;
-        int j = 0;
-        for ( double value : answers ) {
-            if ( j == 4 ) {
-                j = 0;
-                i++;
-            }
-
-            switch (j) {
-                case 0:
-                    splines.get(i).setA0( value );
-                    break;
-                case 1:
-                    splines.get(i).setA1( value );
-                    break;
-                case 2:
-                    splines.get(i).setA2( value );
-                    break;
-                case 3:
-                    splines.get(i).setA3( value );
-                    break;
-            }
-
-            j++;
-        }
-
-        return splines;
 
     }
 

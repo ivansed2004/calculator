@@ -69,9 +69,9 @@ public class InterferogramUtils {
 
     private static List<Double> getIntLimits(List<Spline> splines) {
         List<Double> intLimits = new ArrayList<>();
-        intLimits.add(splines.get(0).getStart());
+        intLimits.add(splines.get(0).getSTART());
         for ( Spline s : splines ) {
-            intLimits.add( s.getEnd() );
+            intLimits.add( s.getEND() );
         }
         return intLimits;
     }
