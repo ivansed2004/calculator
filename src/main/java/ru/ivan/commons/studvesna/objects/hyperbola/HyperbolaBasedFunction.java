@@ -1,17 +1,20 @@
 package ru.ivan.commons.studvesna.objects.hyperbola;
 
+import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.objects.interferogram.PartialSumUtils;
 
-public class HyperbolaBasedFunction {
+import java.util.List;
+
+public class HyperbolaBasedFunction extends MathObject {
 
     private final double[] AMPLITUDES;
 
-    private final String EXPRESSION;
+    private final List<String> PATTERNS;
 
-    public HyperbolaBasedFunction( Interferogram interferogram ) {
+    public HyperbolaBasedFunction( Interferogram interferogram, List<String> patterns ) {
         this.AMPLITUDES = getHyperbolaCoefficients( interferogram, 5 );
-        this.EXPRESSION = buildExpression();
+        this.PATTERNS = patterns;
     }
 
     public double getValue( double arg ) {
@@ -21,9 +24,12 @@ public class HyperbolaBasedFunction {
                 AMPLITUDES[3]/Math.pow(arg, 1);
     }
 
-    private String buildExpression() {
-        String pattern = "%f/x^4 + %f/x^3 + %f/x^2 + %f/x";
-        return String.format( pattern, AMPLITUDES[0], AMPLITUDES[1], AMPLITUDES[2], AMPLITUDES[3] );
+    public void addPattern( String pattern ) {
+        this.PATTERNS.add( pattern);
+    }
+
+    public List<String> getPatterns() {
+        return PATTERNS;
     }
 
     private double[] getHyperbolaCoefficients( Interferogram interferogram, int a ) {
@@ -55,11 +61,6 @@ public class HyperbolaBasedFunction {
 
     public double[] getAMPLITUDES() {
         return AMPLITUDES;
-    }
-
-    // Make it configurable (possibility to choose full or short expression to display)
-    public String toString() {
-        return EXPRESSION;
     }
 
 }

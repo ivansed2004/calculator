@@ -1,6 +1,9 @@
 package ru.ivan.commons.studvesna.api;
 
-public interface ExpressionBuilder extends IntAction<MathObject, String[]> {
+import java.util.List;
+
+@FunctionalInterface
+public interface ExpressionBuilder extends IntAction<MathObject, List<String>> {
 
 
 
