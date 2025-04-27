@@ -16,10 +16,10 @@ public class PartialSumUtils {
 
         double arg = start;
         for ( int k = 0; k < count; k++ ) {
-            results.put( arg, interferogram.evaluate(i, arg, "combined") );
+            results.put( arg, interferogram.evaluate(i, arg) );
             arg += period;
         }
-        results.put( end, interferogram.evaluate(i, end, "combined") );
+        results.put( end, interferogram.evaluate(i, end) );
 
         return results;
 

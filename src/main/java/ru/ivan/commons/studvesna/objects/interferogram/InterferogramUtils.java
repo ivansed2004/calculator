@@ -63,7 +63,7 @@ public class InterferogramUtils {
     }
 
     public static String[] toStrings(Interferogram interferogram) {
-        ExpressionBuilder builder = new ExpressionBuilder(interferogram.getCOMBINED_UNITS());
+        ExpressionBuilder builder = new ExpressionBuilder(interferogram.getUNITS());
         return builder.build();
     }
 
@@ -83,15 +83,14 @@ public class InterferogramUtils {
 
         double arg = start;
         for ( int i = 0; i < count; i++ ) {
-            samples.put(arg, interferogram.getValue(arg, "default"));
+            samples.put(arg, interferogram.getValue(arg));
             arg += period;
         }
-        samples.put(end, interferogram.getValue(end, "default"));
+        samples.put(end, interferogram.getValue(end));
 
         return samples;
     }
 
-    // Combine with 'persist', 'splines' and 'hyperbola'
     public static void persist( Map<Double, Double> samples, String path, String fileName, double start, double end,
                                double period ) {
         try {
