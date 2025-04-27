@@ -59,7 +59,7 @@ public class InterferogramUtils {
 
         }
 
-        return new Interferogram(units);
+        return new Interferogram(units, new ArrayList<>());
     }
 
     public static String[] toStrings(Interferogram interferogram) {

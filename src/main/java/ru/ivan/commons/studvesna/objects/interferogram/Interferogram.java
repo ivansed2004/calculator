@@ -1,11 +1,18 @@
 package ru.ivan.commons.studvesna.objects.interferogram;
 
-public class Interferogram {
+import ru.ivan.commons.studvesna.api.MathObject;
+
+import java.util.List;
+
+public class Interferogram extends MathObject {
 
     private final Unit[][] UNITS;
 
-    public Interferogram( Unit[][] units ) {
+    private final List<String> PATTERNS;
+
+    public Interferogram( Unit[][] units, List<String> patterns ) {
         this.UNITS = getCombinedPartialSums( units );
+        this.PATTERNS = patterns;
     }
 
     private Unit[][] getCombinedPartialSums( Unit[][] units ) {
@@ -31,11 +38,19 @@ public class Interferogram {
         return newUnit;
     }
 
-    public double getValue( Double arg ) {
+    public double getValue( double arg ) {
         return  evaluate( 0, arg ) / Math.pow(arg, 4) +
                 evaluate( 1, arg ) / Math.pow(arg, 3) +
                 evaluate( 2, arg ) / Math.pow(arg, 2) +
                 evaluate( 3, arg ) / Math.pow(arg, 1);
+    }
+
+    public void addPattern( String pattern ) {
+        this.PATTERNS.add( pattern);
+    }
+
+    public List<String> getPatterns() {
+        return PATTERNS;
     }
 
     public double evaluate( int i, double arg ) {

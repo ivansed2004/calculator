@@ -1,6 +1,10 @@
 package ru.ivan.commons.studvesna.objects.interferogram;
 
-public class Unit {
+import ru.ivan.commons.studvesna.api.MathObject;
+
+import java.util.List;
+
+public class Unit extends MathObject {
 
     private final double A;
 
@@ -15,6 +19,16 @@ public class Unit {
         this.C = C;
         this.N = n;
         this.SIGMA = sigma;
+    }
+
+    public double getValue( double arg ) {
+        return ( SIGMA ) ?
+                A*Math.sin(C*arg) /Math.pow(arg, N) :
+                A*Math.cos(C*arg) /Math.pow(arg, N);
+    }
+
+    public List<String> getPatterns() {
+        return List.of( toString() );
     }
 
     public double getA() {
