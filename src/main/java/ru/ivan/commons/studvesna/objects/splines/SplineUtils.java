@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.splines;
+package ru.ivan.commons.studvesna.objects.splines;
 
 import java.io.FileWriter;
 import java.io.IOException;

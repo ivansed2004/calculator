@@ -1,8 +1,8 @@
-package ru.ivan.commons.studvesna.interferogram;
+package ru.ivan.commons.studvesna.objects.interferogram;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
-import ru.ivan.commons.studvesna.splines.Spline;
+import ru.ivan.commons.studvesna.objects.splines.Spline;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;

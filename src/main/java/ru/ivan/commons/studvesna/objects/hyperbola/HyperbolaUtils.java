@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.hyperbola;
+package ru.ivan.commons.studvesna.objects.hyperbola;
 
 import java.io.FileWriter;
 import java.io.IOException;

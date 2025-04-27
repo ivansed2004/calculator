@@ -1,12 +1,12 @@
 package ru.ivan.commons.studvesna;
 
-import ru.ivan.commons.studvesna.hyperbola.HyperbolaBasedFunction;
-import ru.ivan.commons.studvesna.hyperbola.HyperbolaUtils;
-import ru.ivan.commons.studvesna.interferogram.Interferogram;
-import ru.ivan.commons.studvesna.interferogram.InterferogramUtils;
-import ru.ivan.commons.studvesna.splines.Spline;
-import ru.ivan.commons.studvesna.splines.SplineEquationResolver;
-import ru.ivan.commons.studvesna.splines.SplineUtils;
+import ru.ivan.commons.studvesna.objects.hyperbola.HyperbolaBasedFunction;
+import ru.ivan.commons.studvesna.objects.hyperbola.HyperbolaUtils;
+import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
+import ru.ivan.commons.studvesna.objects.interferogram.InterferogramUtils;
+import ru.ivan.commons.studvesna.objects.splines.Spline;
+import ru.ivan.commons.studvesna.objects.splines.SplineEquationResolver;
+import ru.ivan.commons.studvesna.objects.splines.SplineUtils;
 
 import javax.swing.*;
 import java.awt.*;

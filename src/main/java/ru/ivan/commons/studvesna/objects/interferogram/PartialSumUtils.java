@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.interferogram;
+package ru.ivan.commons.studvesna.objects.interferogram;
 
 import java.util.HashMap;
 import java.util.Map;

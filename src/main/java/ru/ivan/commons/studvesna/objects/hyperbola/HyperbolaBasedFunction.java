@@ -1,7 +1,7 @@
-package ru.ivan.commons.studvesna.hyperbola;
+package ru.ivan.commons.studvesna.objects.hyperbola;
 
-import ru.ivan.commons.studvesna.interferogram.Interferogram;
-import ru.ivan.commons.studvesna.interferogram.PartialSumUtils;
+import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
+import ru.ivan.commons.studvesna.objects.interferogram.PartialSumUtils;
 
 public class HyperbolaBasedFunction {
 

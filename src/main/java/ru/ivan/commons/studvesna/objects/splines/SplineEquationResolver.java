@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.splines;
+package ru.ivan.commons.studvesna.objects.splines;
 
 import org.apache.commons.math3.linear.*;
 

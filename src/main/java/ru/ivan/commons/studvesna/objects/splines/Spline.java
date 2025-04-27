@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.splines;
+package ru.ivan.commons.studvesna.objects.splines;
 
 import java.util.List;
 import java.util.Objects;
