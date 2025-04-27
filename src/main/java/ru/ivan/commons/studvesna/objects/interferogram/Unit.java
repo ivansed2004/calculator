@@ -28,7 +28,7 @@ public class Unit extends MathObject {
     }
 
     public List<String> getPatterns() {
-        return List.of( toString() );
+        return ( SIGMA ) ? List.of( "%fsin(%fx)/x^%d" ) : List.of( "%fcos(%fx)/x^%d" );
     }
 
     public double getA() {
@@ -48,7 +48,7 @@ public class Unit extends MathObject {
     }
 
     public String toString() {
-        return SIGMA ? String.format("%fsin(%fx)/x^%d", A, C, N) : String.format("%fcos(%fx)/x^%d", A, C, N);
+        return ( SIGMA ) ? String.format("%fsin(%fx)/x^%d", A, C, N) : String.format("%fcos(%fx)/x^%d", A, C, N);
     }
 
 }
