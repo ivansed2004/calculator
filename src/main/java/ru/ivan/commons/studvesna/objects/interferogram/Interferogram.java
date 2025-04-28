@@ -38,6 +38,7 @@ public class Interferogram extends MathObject {
         return newUnit;
     }
 
+    @Override
     public double getValue( double arg ) {
         return  evaluate( 0, arg ) / Math.pow(arg, 4) +
                 evaluate( 1, arg ) / Math.pow(arg, 3) +
@@ -49,6 +50,7 @@ public class Interferogram extends MathObject {
         this.PATTERNS.add( pattern );
     }
 
+    @Override
     public List<String> getPatterns() {
         return PATTERNS;
     }
