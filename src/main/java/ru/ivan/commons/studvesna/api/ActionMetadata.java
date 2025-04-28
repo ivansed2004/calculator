@@ -2,8 +2,9 @@ package ru.ivan.commons.studvesna.api;
 
 import java.util.Map;
 
-public abstract class ActionMetadata {
+@FunctionalInterface
+public interface ActionMetadata {
 
-    public abstract Map<String, Object> getMetadata();
+    Map<String, Object> getMetadata();
 
 }

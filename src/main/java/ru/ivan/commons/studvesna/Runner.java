@@ -80,14 +80,11 @@ public class Runner {
     }
 
     public static void getApproximatedSpectrum( SplineBasedFunction sbf, String targetPath, String fileName ) {
-        SplineSamplerMetadata samplerMetadata = new SplineSamplerMetadata();
-        SplinePersisterMetadata persisterMetadata = new SplinePersisterMetadata( Map.of("path", targetPath, "fileName", fileName) );
-
         SplineSampler sampler = new SplineSampler();
         SplinePersister persister = new SplinePersister();
 
-        Map<Double, Double> samples = sampler.perform( sbf, samplerMetadata );
-        persister.perform( samples, persisterMetadata );
+        Map<Double, Double> samples = sampler.perform( sbf, () -> Map.of( "period", 1.929 ) );
+        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static SplineBasedFunction getSplineBasedFunction( File file, int period ) {
