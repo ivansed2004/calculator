@@ -1,10 +1,13 @@
 package ru.ivan.commons.studvesna;
 
+import ru.ivan.commons.studvesna.objects.splines.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -51,12 +54,16 @@ public class Runner {
                 }
 
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
-                String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
-                String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-                String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
-                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
+                //String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
+                //String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+                //String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
+                //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
-                ///
+                getApproximatedSpectrum(
+                        getSplineBasedFunction( file, 20 ),
+                        targetPath,
+                        spectrumDiscreteFilename
+                );
 
                 System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
@@ -70,6 +77,21 @@ public class Runner {
 
             frame.dispose();
         }
+    }
+
+    public static void getApproximatedSpectrum( SplineBasedFunction sbf, String targetPath, String fileName ) {
+        SplineSamplerMetadata samplerMetadata = new SplineSamplerMetadata();
+        SplinePersisterMetadata persisterMetadata = new SplinePersisterMetadata( Map.of("path", targetPath, "fileName", fileName) );
+
+        SplineSampler sampler = new SplineSampler();
+        SplinePersister persister = new SplinePersister();
+
+        Map<Double, Double> samples = sampler.perform( sbf, samplerMetadata );
+        persister.perform( samples, persisterMetadata );
+    }
+
+    public static SplineBasedFunction getSplineBasedFunction( File file, int period ) {
+        return SplineEquationResolver.resolve( file, period );
     }
 
 }
