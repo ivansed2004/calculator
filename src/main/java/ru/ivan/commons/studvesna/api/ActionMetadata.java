@@ -1,10 +1,9 @@
 package ru.ivan.commons.studvesna.api;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Map;
 
-@Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.TYPE)
-public @interface ActionMetadata {}
+public abstract class ActionMetadata {
+
+    public abstract Map<String, Object> getMetadata();
+
+}
