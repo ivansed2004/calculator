@@ -1,7 +1,6 @@
-package ru.ivan.commons.studvesna.objects.hyperbola;
+package ru.ivan.commons.studvesna.objects;
 
 import ru.ivan.commons.studvesna.api.MathObject;
-import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.objects.interferogram.PartialSumUtils;
 
 public class Hyperbola extends MathObject {

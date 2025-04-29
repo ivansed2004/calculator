@@ -1,6 +1,8 @@
 package ru.ivan.commons.studvesna.objects.splines;
 
 import org.apache.commons.math3.linear.*;
+import ru.ivan.commons.studvesna.objects.Spline;
+import ru.ivan.commons.studvesna.objects.SplineBasedFunction;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +13,7 @@ import java.util.*;
 public class SplineEquationResolver {
 
     // This method should be public only
-    public static SplineBasedFunction resolve( File file, int period ) {
+    public static SplineBasedFunction resolve(File file, int period ) {
 
         List<Double> X = new ArrayList<>();
         List<Double> Y = new ArrayList<>();
@@ -61,7 +63,7 @@ public class SplineEquationResolver {
 
     }
 
-    private static List<Spline> getResultSplines( List<Double> vectorX, double[] answers ) {
+    private static List<Spline> getResultSplines(List<Double> vectorX, double[] answers ) {
 
         List<Spline> splines = new ArrayList<>();
 

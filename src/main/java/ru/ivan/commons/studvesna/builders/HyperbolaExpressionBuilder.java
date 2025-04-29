@@ -1,8 +1,9 @@
-package ru.ivan.commons.studvesna.objects.hyperbola;
+package ru.ivan.commons.studvesna.builders;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.ExpressionBuilder;
 import ru.ivan.commons.studvesna.api.MathObject;
+import ru.ivan.commons.studvesna.objects.Hyperbola;
 
 import java.util.List;
 

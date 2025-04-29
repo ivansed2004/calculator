@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.objects.interferogram;
+package ru.ivan.commons.studvesna.persisters;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.Persister;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
-public class InterferogramPersister implements Persister {
+public class HyperbolaPersister implements Persister {
 
     @Override
     public void perform( Map<Double, Double> input, ActionMetadata metadata ) {
@@ -28,7 +28,7 @@ public class InterferogramPersister implements Persister {
             Files.createDirectories( directory );
             Files.createFile( filePath );
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating interferogram_discrete file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating hyperbola_discrete file...: " + ex.getMessage());
         }
 
         try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {

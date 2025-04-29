@@ -1,8 +1,6 @@
-package ru.ivan.commons.studvesna.objects.interferogram;
+package ru.ivan.commons.studvesna.objects;
 
 import ru.ivan.commons.studvesna.api.MathObject;
-import ru.ivan.commons.studvesna.objects.splines.Spline;
-import ru.ivan.commons.studvesna.objects.splines.SplineBasedFunction;
 
 import java.util.List;
 

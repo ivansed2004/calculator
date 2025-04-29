@@ -1,8 +1,10 @@
-package ru.ivan.commons.studvesna.objects.interferogram;
+package ru.ivan.commons.studvesna.builders;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.ExpressionBuilder;
 import ru.ivan.commons.studvesna.api.MathObject;
+import ru.ivan.commons.studvesna.objects.Interferogram;
+import ru.ivan.commons.studvesna.objects.Unit;
 
 import java.util.Arrays;
 import java.util.List;

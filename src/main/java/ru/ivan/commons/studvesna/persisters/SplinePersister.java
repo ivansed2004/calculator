@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.objects.hyperbola;
+package ru.ivan.commons.studvesna.persisters;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.Persister;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
-public class HyperbolaPersister implements Persister {
+public class SplinePersister implements Persister {
 
     @Override
     public void perform( Map<Double, Double> input, ActionMetadata metadata ) {
@@ -28,18 +28,19 @@ public class HyperbolaPersister implements Persister {
             Files.createDirectories( directory );
             Files.createFile( filePath );
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating hyperbola_discrete file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating spectrum_discrete file. : " + ex.getMessage());
         }
 
-        try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {
+        try ( FileWriter fw = new FileWriter( path + SEP + fileName ) ) {
             List<Double> args = input.keySet().stream().sorted().collect(Collectors.toList());
             for ( double arg : args ) {
                 fw.write( String.format( "%.3f", arg ) + "\t" + String.format( "%.8f", input.get(arg) ) );
                 fw.write("\n");
             }
-        } catch (IOException ex) {
-            System.out.println("Error occurred while writing into the file: " + ex.getMessage());
+        } catch ( IOException ex ) {
+            System.out.println("Error occurred while writing into the file. " + ex.getMessage());
         }
+
     }
 
 }

@@ -1,5 +1,7 @@
 package ru.ivan.commons.studvesna.objects.interferogram;
 
+import ru.ivan.commons.studvesna.objects.Interferogram;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ public class PartialSumUtils {
     // Keep it always private!
     private PartialSumUtils () {}
 
-    public static Map<Double, Double> performSampling( Interferogram interferogram, double start, double end, double period, int i ) {
+    public static Map<Double, Double> performSampling(Interferogram interferogram, double start, double end, double period, int i ) {
 
         Map<Double, Double> results = new HashMap<>();
 

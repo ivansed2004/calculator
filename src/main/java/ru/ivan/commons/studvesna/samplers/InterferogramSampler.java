@@ -1,13 +1,12 @@
-package ru.ivan.commons.studvesna.objects.hyperbola;
+package ru.ivan.commons.studvesna.samplers;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.api.Sampler;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class HyperbolaSampler implements Sampler {
+public class InterferogramSampler implements Sampler {
 
     @Override
     public Map<Double, Double> perform( MathObject input, ActionMetadata metadata ) {
@@ -28,7 +27,6 @@ public class HyperbolaSampler implements Sampler {
         samples.put(end, input.getValue(end));
 
         return samples;
-
     }
 
 }

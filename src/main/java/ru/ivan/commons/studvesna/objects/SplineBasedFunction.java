@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.objects.splines;
+package ru.ivan.commons.studvesna.objects;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 

@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.objects.hyperbola;
+package ru.ivan.commons.studvesna.printers;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.Printer;
@@ -9,10 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
-public class HyperbolaPrinter implements Printer {
+public class InterferogramPrinter implements Printer {
 
     @Override
     public void perform( List<String> input, ActionMetadata metadata ) {
@@ -26,11 +27,20 @@ public class HyperbolaPrinter implements Printer {
             Files.createDirectories( directory );
             Files.createFile( filePath );
         } catch (IOException ex) {
-            System.out.println("Error occurred while creating hyperbola_analytical file...: " + ex.getMessage());
+            System.out.println("Error occurred while creating interferogram_analytical file...: " + ex.getMessage());
         }
 
         try ( FileWriter fw = new FileWriter(path + SEP + fileName) ) {
-            fw.write( input.get(0) );
+            for (int i = 0; i < input.size(); i++) {
+                if ( !Objects.equals(input.get(i), "") ) {
+                    if ( i != input.size()-1 ) {
+                        fw.write( String.format("%s +", input.get(i)) );
+                    } else {
+                        fw.write( String.format("%s", input.get(i)) );
+                    }
+                    fw.write("\n\n");
+                }
+            }
         } catch (IOException ex) {
             System.out.println("Error occurred while writing into the file: " + ex.getMessage());
         }

@@ -1,8 +1,10 @@
-package ru.ivan.commons.studvesna.objects.splines;
+package ru.ivan.commons.studvesna.samplers;
 
 import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.api.Sampler;
+import ru.ivan.commons.studvesna.objects.Spline;
+import ru.ivan.commons.studvesna.objects.SplineBasedFunction;
 
 import java.util.HashMap;
 import java.util.Map;
