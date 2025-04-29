@@ -4,13 +4,11 @@ import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
 import ru.ivan.commons.studvesna.objects.interferogram.PartialSumUtils;
 
-import java.util.List;
-
-public class HyperbolaBasedFunction extends MathObject {
+public class Hyperbola extends MathObject {
 
     private final double[] AMPLITUDES;
 
-    public HyperbolaBasedFunction( Interferogram interferogram ) {
+    public Hyperbola(Interferogram interferogram ) {
         this.AMPLITUDES = getHyperbolaCoefficients( interferogram, 5 );
     }
 

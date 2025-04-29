@@ -58,8 +58,8 @@ public class Runner {
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
                 String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
                 String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
-                //String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
-                //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
+                String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
+                String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
                 SplineBasedFunction sbf = getSplineBasedFunction( file, 20 );
                 getPersistedSpectrum( sbf, targetPath, spectrumDiscreteFilename );

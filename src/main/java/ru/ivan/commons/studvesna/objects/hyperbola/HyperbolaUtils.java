@@ -14,7 +14,7 @@ public class HyperbolaUtils {
 
     private HyperbolaUtils() {}
 
-    public static Map<Double, Double> performSampling( HyperbolaBasedFunction hyperbola, double start, double end, double period ) {
+    public static Map<Double, Double> performSampling(Hyperbola hyperbola, double start, double end, double period ) {
         Map<Double, Double> samples = new HashMap<>();
 
         double count = Math.ceil((end - start) / period);
