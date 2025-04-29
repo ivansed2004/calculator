@@ -19,31 +19,12 @@ import static ru.ivan.commons.studvesna.environment.Environment.*;
 public class Runner {
 
     public static void main(String[] args) throws Exception {
-        getTargetDirectory();
+        selectTargetDirectory();
         System.out.println(TARGET_DIRECTORY);
-        generateOutput();
+        start( selectSourceFiles() );
     }
 
-    private static void getTargetDirectory() throws Exception {
-        setSystemLookAndFeel();
-
-        Frame frame = new Frame("Source files issue");
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int userSelection = fileChooser.showOpenDialog(frame);
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsolutePath();
-        }
-    }
-
-    private static void generateOutput() {
-        Frame frame = new Frame("Source files issue");
-        FileDialog fileDialog = new FileDialog( frame, "Select source files", FileDialog.LOAD );
-        fileDialog.setMultipleMode(true);
-        fileDialog.setVisible(true);
-
-        File[] filesToOpen = fileDialog.getFiles();
+    private static void start( File[] filesToOpen ) {
         Scanner scn = new Scanner( System.in );
         while (true) {
             System.out.println("Start generating...");
@@ -80,9 +61,30 @@ public class Runner {
                 scn.close();
                 System.exit(0);
             }
-
-            frame.dispose();
         }
+    }
+
+    private static void selectTargetDirectory() throws Exception {
+        setSystemLookAndFeel();
+
+        Frame frame = new Frame("Source files issue");
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int userSelection = fileChooser.showOpenDialog(frame);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            TARGET_DIRECTORY = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+    }
+
+    private static File[] selectSourceFiles() {
+        Frame frame = new Frame("Source files issue");
+        FileDialog fileDialog = new FileDialog( frame, "Select source files", FileDialog.LOAD );
+        fileDialog.setMultipleMode(true);
+        fileDialog.setVisible(true);
+        File[] filesToOpen = fileDialog.getFiles();
+        frame.dispose();
+        return filesToOpen;
     }
 
     public static void getPrintedHyperbola( Hyperbola hyperbola, String targetPath, String fileName ) {
