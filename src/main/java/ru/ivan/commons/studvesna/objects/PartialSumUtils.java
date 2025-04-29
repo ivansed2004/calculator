@@ -1,6 +1,6 @@
-package ru.ivan.commons.studvesna.objects.interferogram;
+package ru.ivan.commons.studvesna.objects;
 
-import ru.ivan.commons.studvesna.objects.Interferogram;
+import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ru.ivan.commons.studvesna.objects;
+package ru.ivan.commons.studvesna.objects.interferogram;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 
