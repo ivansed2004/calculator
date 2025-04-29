@@ -10,11 +10,8 @@ public class HyperbolaBasedFunction extends MathObject {
 
     private final double[] AMPLITUDES;
 
-    private final List<String> PATTERNS;
-
-    public HyperbolaBasedFunction( Interferogram interferogram, List<String> patterns ) {
+    public HyperbolaBasedFunction( Interferogram interferogram ) {
         this.AMPLITUDES = getHyperbolaCoefficients( interferogram, 5 );
-        this.PATTERNS = patterns;
     }
 
     public double getValue( double arg ) {
@@ -22,14 +19,6 @@ public class HyperbolaBasedFunction extends MathObject {
                 AMPLITUDES[1]/Math.pow(arg, 3) +
                 AMPLITUDES[2]/Math.pow(arg, 2) +
                 AMPLITUDES[3]/Math.pow(arg, 1);
-    }
-
-    public void addPattern( String pattern ) {
-        this.PATTERNS.add( pattern);
-    }
-
-    public List<String> getPatterns() {
-        return PATTERNS;
     }
 
     private double[] getHyperbolaCoefficients( Interferogram interferogram, int a ) {

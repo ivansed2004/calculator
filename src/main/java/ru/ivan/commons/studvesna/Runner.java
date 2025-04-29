@@ -1,5 +1,6 @@
 package ru.ivan.commons.studvesna;
 
+import ru.ivan.commons.studvesna.objects.interferogram.*;
 import ru.ivan.commons.studvesna.objects.splines.*;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -54,16 +56,16 @@ public class Runner {
                 }
 
                 String spectrumDiscreteFilename = String.format("spectrum_discrete%d.dat", fileNum);
-                //String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
-                //String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
+                String interferogramDiscreteFilename = String.format("interferogram_discrete%d.dat", fileNum);
+                String interferogramAnalyticalFilename = String.format("interferogram_analytical%d.txt", fileNum);
                 //String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
                 //String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
-                getApproximatedSpectrum(
-                        getSplineBasedFunction( file, 20 ),
-                        targetPath,
-                        spectrumDiscreteFilename
-                );
+                SplineBasedFunction sbf = getSplineBasedFunction( file, 20 );
+                getPersistedSpectrum( sbf, targetPath, spectrumDiscreteFilename );
+                Interferogram interferogram = getInterferogram( sbf );
+                getPersistedInterferogram( interferogram, targetPath, interferogramDiscreteFilename );
+                getPrintedInterferogram( interferogram, targetPath, interferogramAnalyticalFilename );
 
                 System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
 
@@ -79,7 +81,28 @@ public class Runner {
         }
     }
 
-    public static void getApproximatedSpectrum( SplineBasedFunction sbf, String targetPath, String fileName ) {
+    public static void getPrintedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
+        InterferogramEB builder = new InterferogramEB();
+        InterferogramPrinter printer = new InterferogramPrinter();
+
+        List<String> stringsToPrint = builder.perform( interferogram, Map::of );
+        printer.perform( stringsToPrint, () -> Map.of("path", targetPath, "fileName", fileName) );
+    }
+
+    public static void getPersistedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
+        InterferogramSampler sampler = new InterferogramSampler();
+        InterferogramPersister persister = new InterferogramPersister();
+
+        Map<Double, Double> samples = sampler.
+                perform( interferogram, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929) );
+        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
+    }
+
+    public static Interferogram getInterferogram( SplineBasedFunction sbf ) {
+        return new Interferogram( sbf );
+    }
+
+    public static void getPersistedSpectrum( SplineBasedFunction sbf, String targetPath, String fileName ) {
         SplineSampler sampler = new SplineSampler();
         SplinePersister persister = new SplinePersister();
 

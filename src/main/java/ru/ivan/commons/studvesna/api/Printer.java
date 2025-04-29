@@ -1,7 +1,9 @@
 package ru.ivan.commons.studvesna.api;
 
+import java.util.List;
+
 @FunctionalInterface
-public interface Printer extends TerminalAction<String[]> {
+public interface Printer extends TerminalAction<List<String>> {
 
 
 

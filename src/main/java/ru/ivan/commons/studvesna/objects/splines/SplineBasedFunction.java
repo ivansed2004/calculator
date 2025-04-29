@@ -1,17 +1,25 @@
 package ru.ivan.commons.studvesna.objects.splines;
 
 import ru.ivan.commons.studvesna.api.MathObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SplineBasedFunction extends MathObject {
 
     private final List<Spline> SPLINES;
 
-    private final List<String> PATTERNS;
-
-    public SplineBasedFunction( List<Spline> splines, List<String> patterns ) {
+    public SplineBasedFunction( List<Spline> splines ) {
         this.SPLINES = splines;
-        this.PATTERNS = patterns;
+    }
+
+    public List<Double> getIntLimits() {
+        List<Double> intLimits = new ArrayList<>();
+        intLimits.add(SPLINES.get(0).getSTART());
+        for ( Spline s : SPLINES ) {
+            intLimits.add( s.getEND() );
+        }
+        return intLimits;
     }
 
     @Override
@@ -21,15 +29,6 @@ public class SplineBasedFunction extends MathObject {
             value += spline.getValue(arg);
         }
         return value;
-    }
-
-    public void addPattern( String pattern ) {
-        this.PATTERNS.add( pattern);
-    }
-
-    @Override
-    public List<String> getPatterns() {
-        return PATTERNS;
     }
 
     public List<Spline> getSPLINES() {

@@ -1,19 +1,19 @@
 package ru.ivan.commons.studvesna.objects.interferogram;
 
+import ru.ivan.commons.studvesna.api.ActionMetadata;
+import ru.ivan.commons.studvesna.api.ExpressionBuilder;
+import ru.ivan.commons.studvesna.api.MathObject;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class ExpressionBuilder {
+public class InterferogramEB implements ExpressionBuilder {
 
-    private final Unit[][] UNITS;
-
-    public ExpressionBuilder( Unit[][] units ) {
-        this.UNITS = units;
-    }
-
-    public String[] build() {
-        return Arrays.stream(UNITS)
+    public List<String> perform( MathObject input, ActionMetadata metadata ) {
+        return Arrays.stream( ((Interferogram) input).getUNITS() )
                 .map(this::buildPartialSumExpression)
-                .toArray( String[]::new );
+                .collect(Collectors.toList());
     }
 
     private String buildPartialSumExpression( Unit[] units ) {

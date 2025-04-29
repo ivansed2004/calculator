@@ -57,7 +57,7 @@ public class SplineEquationResolver {
         RealVector solution = resolveSplineEquation( vectorX, vectorY );
         double[] answers = solution.toArray();
 
-        return new SplineBasedFunction( getResultSplines( X, answers ), new ArrayList<>() );
+        return new SplineBasedFunction( getResultSplines( X, answers ) );
 
     }
 

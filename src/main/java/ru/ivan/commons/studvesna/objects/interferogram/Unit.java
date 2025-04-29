@@ -2,8 +2,6 @@ package ru.ivan.commons.studvesna.objects.interferogram;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 
-import java.util.List;
-
 public class Unit extends MathObject {
 
     private final double A;
@@ -25,10 +23,6 @@ public class Unit extends MathObject {
         return ( SIGMA ) ?
                 A*Math.sin(C*arg) /Math.pow(arg, N) :
                 A*Math.cos(C*arg) /Math.pow(arg, N);
-    }
-
-    public List<String> getPatterns() {
-        return ( SIGMA ) ? List.of( "%fsin(%fx)/x^%d" ) : List.of( "%fcos(%fx)/x^%d" );
     }
 
     public double getA() {

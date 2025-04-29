@@ -2,8 +2,6 @@ package ru.ivan.commons.studvesna.objects.splines;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 
-import java.util.List;
-
 public class Spline extends MathObject {
 
     private final double START;
@@ -36,10 +34,6 @@ public class Spline extends MathObject {
             return 0.0d;
         }
         return A3*Math.pow(arg, 3) + A2*Math.pow(arg, 2) + A1*Math.pow(arg, 1) + A0;
-    }
-
-    public List<String> getPatterns() {
-        return List.of( "%.3fx^3 + %.3fx^2 + %.3fx + %.3f, [%.3f; %.3f]" );
     }
 
     public double getSTART() {
