@@ -82,7 +82,7 @@ public class Runner {
     }
 
     public static void getPrintedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
-        InterferogramEB builder = new InterferogramEB();
+        InterferogramExpressionBuilder builder = new InterferogramExpressionBuilder();
         InterferogramPrinter printer = new InterferogramPrinter();
 
         List<String> stringsToPrint = builder.perform( interferogram, Map::of );

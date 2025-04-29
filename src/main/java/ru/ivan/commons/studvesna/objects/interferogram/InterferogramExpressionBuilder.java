@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InterferogramEB implements ExpressionBuilder {
+public class InterferogramExpressionBuilder implements ExpressionBuilder {
 
     public List<String> perform( MathObject input, ActionMetadata metadata ) {
         return Arrays.stream( ((Interferogram) input).getUNITS() )
