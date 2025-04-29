@@ -1,5 +1,6 @@
 package ru.ivan.commons.studvesna;
 
+import ru.ivan.commons.studvesna.objects.hyperbola.*;
 import ru.ivan.commons.studvesna.objects.interferogram.*;
 import ru.ivan.commons.studvesna.objects.splines.*;
 
@@ -47,7 +48,6 @@ public class Runner {
         while (true) {
             System.out.println("Start generating...");
             for ( File file : filesToOpen ) {
-
                 int fileNum = Integer.parseInt( file.getName().split("\\.")[0] );
                 String targetPath = TARGET_DIRECTORY + SEP + String.format("%d", fileNum);
 
@@ -63,12 +63,16 @@ public class Runner {
 
                 SplineBasedFunction sbf = getSplineBasedFunction( file, 20 );
                 getPersistedSpectrum( sbf, targetPath, spectrumDiscreteFilename );
+
                 Interferogram interferogram = getInterferogram( sbf );
                 getPersistedInterferogram( interferogram, targetPath, interferogramDiscreteFilename );
                 getPrintedInterferogram( interferogram, targetPath, interferogramAnalyticalFilename );
 
-                System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
+                Hyperbola hyperbola = getHyperbola( interferogram );
+                getPersistedHyperbola( hyperbola, targetPath, hyperbolaDiscreteFilename );
+                getPrintedHyperbola( hyperbola, targetPath, hyperbolaAnalyticalFilename );
 
+                System.out.printf("\nThe directory for source file №%d has been generated.\n", fileNum);
             }
 
             System.out.println("Do you wish to terminate the program?");
@@ -79,6 +83,27 @@ public class Runner {
 
             frame.dispose();
         }
+    }
+
+    public static void getPrintedHyperbola( Hyperbola hyperbola, String targetPath, String fileName ) {
+        HyperbolaExpressionBuilder builder = new HyperbolaExpressionBuilder();
+        HyperbolaPrinter printer = new HyperbolaPrinter();
+
+        List<String> stringsToPrint = builder.perform( hyperbola, Map::of );
+        printer.perform( stringsToPrint, () -> Map.of("path", targetPath, "fileName", fileName) );
+    }
+
+    public static void getPersistedHyperbola( Hyperbola hyperbola, String targetPath, String fileName ) {
+        HyperbolaSampler sampler = new HyperbolaSampler();
+        HyperbolaPersister persister = new HyperbolaPersister();
+
+        Map<Double, Double> samples = sampler
+                .perform( hyperbola, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929)  );
+        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
+    }
+
+    public static Hyperbola getHyperbola( Interferogram interferogram ) {
+        return new Hyperbola( interferogram );
     }
 
     public static void getPrintedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
@@ -93,8 +118,8 @@ public class Runner {
         InterferogramSampler sampler = new InterferogramSampler();
         InterferogramPersister persister = new InterferogramPersister();
 
-        Map<Double, Double> samples = sampler.
-                perform( interferogram, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929) );
+        Map<Double, Double> samples = sampler
+                .perform( interferogram, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929) );
         persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
     }
 
@@ -106,7 +131,8 @@ public class Runner {
         SplineSampler sampler = new SplineSampler();
         SplinePersister persister = new SplinePersister();
 
-        Map<Double, Double> samples = sampler.perform( sbf, () -> Map.of( "period", 1.929 ) );
+        Map<Double, Double> samples = sampler
+                .perform( sbf, () -> Map.of( "period", 1.929 ) );
         persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
     }
 
