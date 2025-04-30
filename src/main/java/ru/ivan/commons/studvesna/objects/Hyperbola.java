@@ -2,6 +2,7 @@ package ru.ivan.commons.studvesna.objects;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
+import ru.ivan.commons.studvesna.samplers.InterferogramSampler;
 
 public class Hyperbola extends MathObject {
 
@@ -28,19 +29,26 @@ public class Hyperbola extends MathObject {
 
         double[] results = new double[4];
 
-        for ( int i = 0; i < 4; i++ ) {
-            double res1 = PartialSumUtils.performSampling( interferogram, s1, e1, period, i )
+        InterferogramSampler sampler = new InterferogramSampler();
+        int i = 0;
+        /*
+        while ( i < 5 ) {
+            double res1 = sampler
+                    .perform( interferogram, () -> Map.of( "start", s1, "end", s2, "period", period, "i", i) )
                     .values()
                     .stream()
                     .max( Double::compareTo )
                     .get();
-            double res2 = PartialSumUtils.performSampling( interferogram, s2, e2, period, i )
+            double res2 = sampler.perform( interferogram, () -> Map.of( "start", s1, "end", s2, "period", period, "i", i) )
                     .values()
                     .stream()
                     .max( Double::compareTo )
                     .get();
             results[i] = Math.max( res1, res2 );
+            i++;
         }
+
+         */
 
         return results;
     }

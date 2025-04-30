@@ -1,6 +1,5 @@
 package ru.ivan.commons.studvesna.samplers;
 
-import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.api.Sampler;
 import ru.ivan.commons.studvesna.objects.spline.Spline;
@@ -12,10 +11,10 @@ import java.util.Map;
 public class SplineSampler implements Sampler {
 
     @Override
-    public Map<Double, Double> perform( MathObject input, ActionMetadata metadata ) {
+    public Map<Double, Double> perform( MathObject input, Map<String, Object> metadata ) {
 
         SplineBasedFunction function = (SplineBasedFunction) input;
-        double period = (double) metadata.getMetadata().get("period");
+        double period = (double) metadata.get("period");
 
         Map<Double, Double> results = new HashMap<>();
 

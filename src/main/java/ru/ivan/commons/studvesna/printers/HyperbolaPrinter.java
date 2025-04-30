@@ -1,6 +1,5 @@
 package ru.ivan.commons.studvesna.printers;
 
-import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.Printer;
 
 import java.io.FileWriter;
@@ -9,16 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 
 public class HyperbolaPrinter implements Printer {
 
     @Override
-    public void perform( List<String> input, ActionMetadata metadata ) {
+    public void perform( List<String> input, Map<String, Object> metadata ) {
 
-        String path = (String) metadata.getMetadata().get("path");
-        String fileName = (String) metadata.getMetadata().get("fileName");
+        String path = (String) metadata.get("path");
+        String fileName = (String) metadata.get("fileName");
 
         try {
             Path directory = Paths.get( path );

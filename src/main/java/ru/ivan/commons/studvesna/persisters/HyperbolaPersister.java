@@ -1,6 +1,5 @@
 package ru.ivan.commons.studvesna.persisters;
 
-import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.Persister;
 
 import java.io.FileWriter;
@@ -17,10 +16,10 @@ import static ru.ivan.commons.studvesna.environment.Environment.SEP;
 public class HyperbolaPersister implements Persister {
 
     @Override
-    public void perform( Map<Double, Double> input, ActionMetadata metadata ) {
+    public void perform( Map<Double, Double> input, Map<String, Object> metadata ) {
 
-        String path = (String) metadata.getMetadata().get("path");
-        String fileName = (String) metadata.getMetadata().get("fileName");
+        String path = (String) metadata.get("path");
+        String fileName = (String) metadata.get("fileName");
 
         try {
             Path directory = Paths.get( path );

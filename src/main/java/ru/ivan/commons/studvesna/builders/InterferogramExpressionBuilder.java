@@ -1,6 +1,5 @@
 package ru.ivan.commons.studvesna.builders;
 
-import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.ExpressionBuilder;
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
@@ -8,11 +7,12 @@ import ru.ivan.commons.studvesna.objects.interferogram.Unit;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InterferogramExpressionBuilder implements ExpressionBuilder {
 
-    public List<String> perform( MathObject input, ActionMetadata metadata ) {
+    public List<String> perform( MathObject input, Map<String, Object> metadata ) {
         return Arrays.stream( ((Interferogram) input).getUNITS() )
                 .map(this::buildPartialSumExpression)
                 .collect(Collectors.toList());

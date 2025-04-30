@@ -1,6 +1,5 @@
 package ru.ivan.commons.studvesna.samplers;
 
-import ru.ivan.commons.studvesna.api.ActionMetadata;
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.api.Sampler;
 
@@ -10,11 +9,11 @@ import java.util.Map;
 public class HyperbolaSampler implements Sampler {
 
     @Override
-    public Map<Double, Double> perform( MathObject input, ActionMetadata metadata ) {
+    public Map<Double, Double> perform( MathObject input, Map<String, Object> metadata ) {
 
-        double start = (double) metadata.getMetadata().get("start");
-        double end = (double) metadata.getMetadata().get("end");
-        double period = (double) metadata.getMetadata().get("period");
+        double start = (double) metadata.get("start");
+        double end = (double) metadata.get("end");
+        double period = (double) metadata.get("period");
 
         Map<Double, Double> samples = new HashMap<>();
 
