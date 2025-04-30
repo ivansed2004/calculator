@@ -102,8 +102,8 @@ public class Runner {
         HyperbolaExpressionBuilder builder = new HyperbolaExpressionBuilder();
         HyperbolaPrinter printer = new HyperbolaPrinter();
 
-        List<String> stringsToPrint = builder.perform( hyperbola, Map::of );
-        printer.perform( stringsToPrint, () -> Map.of("path", targetPath, "fileName", fileName) );
+        List<String> stringsToPrint = builder.perform( hyperbola, Map.of() );
+        printer.perform( stringsToPrint, Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static void getPersistedHyperbola( Hyperbola hyperbola, String targetPath, String fileName ) {
@@ -111,8 +111,8 @@ public class Runner {
         HyperbolaPersister persister = new HyperbolaPersister();
 
         Map<Double, Double> samples = sampler
-                .perform( hyperbola, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929)  );
-        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
+                .perform( hyperbola, Map.of("start", 1429.155, "end", 4000.092, "period", 1.929)  );
+        persister.perform( samples, Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static Hyperbola getHyperbola( Interferogram interferogram ) {
@@ -123,8 +123,8 @@ public class Runner {
         InterferogramExpressionBuilder builder = new InterferogramExpressionBuilder();
         InterferogramPrinter printer = new InterferogramPrinter();
 
-        List<String> stringsToPrint = builder.perform( interferogram, Map::of );
-        printer.perform( stringsToPrint, () -> Map.of("path", targetPath, "fileName", fileName) );
+        List<String> stringsToPrint = builder.perform( interferogram, Map.of() );
+        printer.perform( stringsToPrint, Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static void getPersistedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
@@ -132,8 +132,8 @@ public class Runner {
         InterferogramPersister persister = new InterferogramPersister();
 
         Map<Double, Double> samples = sampler
-                .perform( interferogram, () -> Map.of("start", 1429.155, "end", 4000.092, "period", 1.929) );
-        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
+                .perform( interferogram, Map.of("start", 1429.155, "end", 4000.092, "period", 1.929) );
+        persister.perform( samples, Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static Interferogram getInterferogram( SplineBasedFunction sbf ) {
@@ -145,8 +145,8 @@ public class Runner {
         SplinePersister persister = new SplinePersister();
 
         Map<Double, Double> samples = sampler
-                .perform( sbf, () -> Map.of( "period", 1.929 ) );
-        persister.perform( samples, () -> Map.of("path", targetPath, "fileName", fileName) );
+                .perform( sbf, Map.of( "period", 1.929 ) );
+        persister.perform( samples, Map.of("path", targetPath, "fileName", fileName) );
     }
 
     public static SplineBasedFunction getSplineBasedFunction( File file, int period ) {

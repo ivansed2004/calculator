@@ -2,7 +2,9 @@ package ru.ivan.commons.studvesna.objects;
 
 import ru.ivan.commons.studvesna.api.MathObject;
 import ru.ivan.commons.studvesna.objects.interferogram.Interferogram;
+import ru.ivan.commons.studvesna.samplers.HInterferogramSampler;
 import ru.ivan.commons.studvesna.samplers.InterferogramSampler;
+import java.util.Map;
 
 public class Hyperbola extends MathObject {
 
@@ -29,17 +31,16 @@ public class Hyperbola extends MathObject {
 
         double[] results = new double[4];
 
-        InterferogramSampler sampler = new InterferogramSampler();
-        int i = 0;
-        /*
-        while ( i < 5 ) {
+        InterferogramSampler sampler = new HInterferogramSampler();
+
+        for ( int i = 0; i < results.length; i++ ) {
             double res1 = sampler
-                    .perform( interferogram, () -> Map.of( "start", s1, "end", s2, "period", period, "i", i) )
+                    .perform( interferogram, Map.of( "start", s1, "end", e1, "period", period, "i", i) )
                     .values()
                     .stream()
                     .max( Double::compareTo )
                     .get();
-            double res2 = sampler.perform( interferogram, () -> Map.of( "start", s1, "end", s2, "period", period, "i", i) )
+            double res2 = sampler.perform( interferogram, Map.of( "start", s2, "end", e2, "period", period, "i", i) )
                     .values()
                     .stream()
                     .max( Double::compareTo )
@@ -47,8 +48,6 @@ public class Hyperbola extends MathObject {
             results[i] = Math.max( res1, res2 );
             i++;
         }
-
-         */
 
         return results;
     }
