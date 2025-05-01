@@ -32,7 +32,7 @@ public class Interferogram extends MathObject {
             for ( int n : psn ) {
                 newAmp += Math.round( 1000.0*units[n][i].getA() ) / 1000.0;
             }
-            newUnit[i] = new Unit( newAmp,
+            newUnit[i] = new Unit( Math.round( 1000.0*newAmp ) / 1000.0,
                     units[psn[0]][i].getC(), units[psn[0]][i].getN(), units[psn[0]][i].isSIGMA() );
         }
         return newUnit;

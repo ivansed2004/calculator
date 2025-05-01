@@ -40,13 +40,13 @@ public class Hyperbola extends MathObject {
                     .stream()
                     .max( Double::compareTo )
                     .get();
-            double res2 = sampler.perform( interferogram, Map.of( "start", s2, "end", e2, "period", period, "i", i) )
+            double res2 = sampler
+                    .perform( interferogram, Map.of( "start", s2, "end", e2, "period", period, "i", i) )
                     .values()
                     .stream()
                     .max( Double::compareTo )
                     .get();
             results[i] = Math.max( res1, res2 );
-            i++;
         }
 
         return results;

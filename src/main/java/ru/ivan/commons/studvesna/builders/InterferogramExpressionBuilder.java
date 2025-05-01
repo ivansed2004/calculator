@@ -19,10 +19,11 @@ public class InterferogramExpressionBuilder implements ExpressionBuilder {
     }
 
     private String buildPartialSumExpression( Unit[] units ) {
+        Unit[] nonNullUnits = cutNullUnits(units);
         String result = "";
-        if ( units.length > 0 ) {
-            String s = buildTrigSum(units);
-            int n = units[0].getN();
+        if ( nonNullUnits.length > 0 ) {
+            String s = buildTrigSum(nonNullUnits);
+            int n = nonNullUnits[0].getN();
             if (n == 1) {
                 result = String.format("(%s)/x", s);
             } else {
@@ -30,6 +31,13 @@ public class InterferogramExpressionBuilder implements ExpressionBuilder {
             }
         }
         return result;
+    }
+
+    private Unit[] cutNullUnits( Unit[] units ) {
+        return Arrays.stream(units).filter( unit -> {
+            double amp = unit.getA();
+            return ( Math.abs(amp) >= 0.001 );
+        } ).toArray( Unit[]::new );
     }
 
     private String buildTrigSum( Unit[] units ) {
