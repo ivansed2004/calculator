@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.objects.interferogram;
 
-import ru.sedinkin.calculator.api.MathObject;
+import ru.sedinkin.calculator.interfaces.MathObject;
 
 public class Unit extends MathObject {
 

@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.printers;
 
-import ru.sedinkin.calculator.api.Printer;
+import ru.sedinkin.calculator.interfaces.Printer;
 
 import java.io.FileWriter;
 import java.io.IOException;

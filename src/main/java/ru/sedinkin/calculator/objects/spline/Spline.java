@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.objects.spline;
 
-import ru.sedinkin.calculator.api.MathObject;
+import ru.sedinkin.calculator.interfaces.MathObject;
 
 public class Spline extends MathObject {
 
