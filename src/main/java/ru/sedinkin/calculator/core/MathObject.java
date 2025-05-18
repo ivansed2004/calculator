@@ -1,4 +1,4 @@
-package ru.sedinkin.calculator.interfaces;
+package ru.sedinkin.calculator.core;
 
 public abstract class MathObject {
 

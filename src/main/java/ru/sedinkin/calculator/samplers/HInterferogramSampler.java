@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.samplers;
 
-import ru.sedinkin.calculator.interfaces.MathObject;
+import ru.sedinkin.calculator.core.MathObject;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
 import java.util.HashMap;
 import java.util.Map;

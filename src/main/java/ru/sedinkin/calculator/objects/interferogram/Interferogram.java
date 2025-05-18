@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.objects.interferogram;
 
-import ru.sedinkin.calculator.interfaces.MathObject;
+import ru.sedinkin.calculator.core.MathObject;
 import ru.sedinkin.calculator.objects.spline.Spline;
 import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
 

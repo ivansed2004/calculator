@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.persisters;
 
-import ru.sedinkin.calculator.interfaces.Persister;
+import ru.sedinkin.calculator.core.Persister;
 
 import java.io.FileWriter;
 import java.io.IOException;

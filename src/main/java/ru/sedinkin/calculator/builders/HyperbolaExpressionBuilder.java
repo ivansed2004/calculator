@@ -1,7 +1,7 @@
 package ru.sedinkin.calculator.builders;
 
-import ru.sedinkin.calculator.interfaces.ExpressionBuilder;
-import ru.sedinkin.calculator.interfaces.MathObject;
+import ru.sedinkin.calculator.core.ExpressionBuilder;
+import ru.sedinkin.calculator.core.MathObject;
 import ru.sedinkin.calculator.objects.Hyperbola;
 
 import java.util.List;

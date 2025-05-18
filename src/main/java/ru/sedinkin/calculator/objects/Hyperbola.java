@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.objects;
 
-import ru.sedinkin.calculator.interfaces.MathObject;
+import ru.sedinkin.calculator.core.MathObject;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
 import ru.sedinkin.calculator.samplers.HInterferogramSampler;
 import ru.sedinkin.calculator.samplers.InterferogramSampler;

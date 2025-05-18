@@ -1,6 +1,6 @@
 package ru.sedinkin.calculator.objects.spline;
 
-import ru.sedinkin.calculator.interfaces.MathObject;
+import ru.sedinkin.calculator.core.MathObject;
 
 import java.util.ArrayList;
 import java.util.List;
