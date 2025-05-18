@@ -2,6 +2,7 @@ package ru.sedinkin.calculator;
 
 import ru.sedinkin.calculator.builders.HyperbolaExpressionBuilder;
 import ru.sedinkin.calculator.builders.InterferogramExpressionBuilder;
+import ru.sedinkin.calculator.builders.UnsignedInterferogramExpressionBuilder;
 import ru.sedinkin.calculator.objects.Hyperbola;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
 import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
@@ -110,7 +111,7 @@ public class Runner {
     }
 
     public static void getPrintedInterferogram( Interferogram interferogram, String targetPath, String fileName ) {
-        InterferogramExpressionBuilder builder = new InterferogramExpressionBuilder();
+        InterferogramExpressionBuilder builder = new UnsignedInterferogramExpressionBuilder();
         InterferogramPrinter printer = new InterferogramPrinter();
 
         List<String> stringsToPrint = builder.perform( interferogram, Map.of() );
