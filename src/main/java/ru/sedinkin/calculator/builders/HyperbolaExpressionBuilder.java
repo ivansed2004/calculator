@@ -2,8 +2,10 @@ package ru.sedinkin.calculator.builders;
 
 import ru.sedinkin.calculator.core.ExpressionBuilder;
 import ru.sedinkin.calculator.core.MathObject;
-import ru.sedinkin.calculator.objects.Hyperbola;
+import ru.sedinkin.calculator.objects.hyperbola.HUnit;
+import ru.sedinkin.calculator.objects.hyperbola.Hyperbola;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +13,18 @@ public class HyperbolaExpressionBuilder implements ExpressionBuilder {
 
     @Override
     public List<String> perform( MathObject input, Map<String, Object> metadata ) {
-        double[] amp = ((Hyperbola) input).getAMPLITUDES();
-        return List.of(
-                String.format( "%f/x^4 + %f/x^3 + %f/x^2 + %f/x", amp[0], amp[1], amp[2], amp[3] )
-        );
+        HUnit[] hUnits = Arrays.stream(((Hyperbola) input).getHUNITS())
+                .filter( hUnit -> Math.abs(hUnit.getA()) >= 0.001 )
+                .toArray( HUnit[]::new );
+        String result = "";
+        for ( int i = 0; i < hUnits.length; i++ ) {
+            if (i == 0) {
+                result = result.concat( hUnits[i].toString() );
+            } else {
+                result = result.concat(" + ").concat( hUnits[i].toString() );
+            }
+        }
+        return List.of( result );
     }
 
 }

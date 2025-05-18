@@ -3,7 +3,7 @@ package ru.sedinkin.calculator;
 import ru.sedinkin.calculator.builders.HyperbolaExpressionBuilder;
 import ru.sedinkin.calculator.builders.InterferogramExpressionBuilder;
 import ru.sedinkin.calculator.builders.UnsignedInterferogramExpressionBuilder;
-import ru.sedinkin.calculator.objects.Hyperbola;
+import ru.sedinkin.calculator.objects.hyperbola.Hyperbola;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
 import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
 import ru.sedinkin.calculator.objects.spline.SplineEquationResolver;
