@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class UnsignedInterferogramExpressionBuilder extends InterferogramExpressionBuilder {
+public class UnsignedInterferogramExpressionBuilder extends SignedInterferogramExpressionBuilder {
 
     @Override
     public List<String> perform( MathObject input, Map<String, Object> metadata ) {

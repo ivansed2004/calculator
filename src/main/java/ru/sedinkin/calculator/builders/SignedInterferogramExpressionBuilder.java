@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class InterferogramExpressionBuilder implements ExpressionBuilder {
+public class SignedInterferogramExpressionBuilder implements ExpressionBuilder {
 
     public List<String> perform( MathObject input, Map<String, Object> metadata ) {
         return Arrays.stream( ((Interferogram) input).getUNITS() )
