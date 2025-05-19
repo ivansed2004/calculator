@@ -1,8 +1,10 @@
 package ru.sedinkin.calculator;
 
+import org.yaml.snakeyaml.Yaml;
 import ru.sedinkin.calculator.builders.HyperbolaExpressionBuilder;
 import ru.sedinkin.calculator.builders.InterferogramExpressionBuilder;
 import ru.sedinkin.calculator.builders.UnsignedInterferogramExpressionBuilder;
+import ru.sedinkin.calculator.environment.YamlParser;
 import ru.sedinkin.calculator.objects.hyperbola.Hyperbola;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
 import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
@@ -23,13 +25,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static ru.sedinkin.calculator.environment.Environment.*;
 
 public class Runner {
 
     public static void main(String[] args) throws Exception {
-        selectTargetDirectory();
+        YamlParser.setDefaultTargetDirectory();
+        YamlParser.parseRuntimeTargetDirectorySelection();
+        if ( Objects.equals(RUNTIME_TARGET_DIR_SELECTION, "always") ) {
+            selectTargetDirectory();
+        }
         System.out.println(TARGET_DIRECTORY);
         start( selectSourceFiles() );
     }

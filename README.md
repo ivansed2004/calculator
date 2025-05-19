@@ -21,16 +21,28 @@ To install the program correctly follow these steps:
 
     $ git clone https://github.com/ivansed2004/calculator
 
-    (if git system is absent on your system, you can to simply download the repository using "Code" -> "Download ZIP")
+    (if git system is absent on your system, you can simply download the repository using "Code" -> "Download ZIP")
 
 2. Run the .jar file with the command below:
 
 
     $ java -jar calculator-1.0.jar
 
+= YAML SETTINGS =
+
+1. The current config.yaml file (src/main/resources/config.yaml) allows you to customize the program usage:
+
+
+    pre-calculation-settings:
+       default-target-directory: <absolute path>
+       runtime-target-directory-selection: <always/never>
+
+   - default-target-directory is specified for the program to use constant target directory path.
+   - runtime-target-directory-selection is specified for the program to always/never require the GUI selection of target directory.
+
 = HOW TO USE =
 
-1. At the very beginning the program asks you to choose the target directory where result files will be generated into. Choose it through the GUI.
+1. At the very beginning the program asks you to choose the target directory where result files will be generated into.
 
 2. The next step is that you should choose the source files for further automated calculations.
 
@@ -95,9 +107,21 @@ To install the program correctly follow these steps:
 
     $ java -jar calculator-1.0.jar
 
+= НАСТРОЙКИ YAML =
+
+1. Текущий файл config.yaml (src/main/resources/config.yaml) позволяет вам настраивать использование программы:
+
+
+    pre-calculation-settings:
+       default-target-directory: <абсолютный путь>
+       runtime-target-directory-selection: <всегда/никогда>
+
+- default-target-directory указывается для программы, чтобы использовать постоянный путь к целевому каталогу.
+- runtime-target-directory-selection указывается для программы, чтобы всегда/никогда не требовать выбор целевого каталога через GUI.
+
 = КАК ИСПОЛЬЗОВАТЬ =
 
-1. В самом начале программа просит вас выбрать целевой каталог, в который будут сгенерированы файлы результатов. Выберите его через графический интерфейс.
+1. В самом начале программа просит вас выбрать целевой каталог, в который будут сгенерированы файлы результатов.
 
 2. Следующим шагом будет выбор исходных файлов для дальнейших автоматизированных расчетов.
 
