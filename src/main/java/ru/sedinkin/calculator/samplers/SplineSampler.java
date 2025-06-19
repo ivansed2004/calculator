@@ -2,8 +2,8 @@ package ru.sedinkin.calculator.samplers;
 
 import ru.sedinkin.calculator.core.MathObject;
 import ru.sedinkin.calculator.core.Sampler;
+import ru.sedinkin.calculator.objects.spline.SUnit;
 import ru.sedinkin.calculator.objects.spline.Spline;
-import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +13,13 @@ public class SplineSampler implements Sampler {
     @Override
     public Map<Double, Double> perform( MathObject input, Map<String, Object> metadata ) {
 
-        SplineBasedFunction function = (SplineBasedFunction) input;
+        Spline function = (Spline) input;
         double period = (double) metadata.get("period");
 
         Map<Double, Double> results = new HashMap<>();
 
         int temp = 0;
-        for ( Spline spline: function.getSPLINES() ) {
+        for ( SUnit spline: function.getSUNITS() ) {
             double count = (spline.getEND() - spline.getSTART()) / period;
 
             double arg = spline.getSTART();
@@ -27,7 +27,7 @@ public class SplineSampler implements Sampler {
                 results.put( arg, spline.getValue(arg) );
                 arg += period;
             }
-            if ( temp == function.getSPLINES().size() - 1 ) {
+            if ( temp == function.getSUNITS().size() - 1 ) {
                 arg = spline.getEND();
                 results.put( arg, spline.getValue(arg) );
             }

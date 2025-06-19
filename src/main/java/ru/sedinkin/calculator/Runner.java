@@ -1,14 +1,13 @@
 package ru.sedinkin.calculator;
 
-import org.yaml.snakeyaml.Yaml;
 import ru.sedinkin.calculator.builders.HyperbolaExpressionBuilder;
 import ru.sedinkin.calculator.builders.InterferogramExpressionBuilder;
 import ru.sedinkin.calculator.builders.UnsignedInterferogramExpressionBuilder;
 import ru.sedinkin.calculator.environment.YamlParser;
 import ru.sedinkin.calculator.objects.hyperbola.Hyperbola;
 import ru.sedinkin.calculator.objects.interferogram.Interferogram;
-import ru.sedinkin.calculator.objects.spline.SplineBasedFunction;
-import ru.sedinkin.calculator.objects.spline.SplineEquationResolver;
+import ru.sedinkin.calculator.objects.spline.Spline;
+import ru.sedinkin.calculator.utils.SplineEquationResolver;
 import ru.sedinkin.calculator.persisters.HyperbolaPersister;
 import ru.sedinkin.calculator.persisters.InterferogramPersister;
 import ru.sedinkin.calculator.persisters.SplinePersister;
@@ -57,7 +56,7 @@ public class Runner {
             String hyperbolaDiscreteFilename = String.format("hyperbola_discrete%d.dat", fileNum);
             String hyperbolaAnalyticalFilename = String.format("hyperbola_analytical%d.txt", fileNum);
 
-            SplineBasedFunction sbf = getSplineBasedFunction( file, 20 );
+            Spline sbf = getSplineBasedFunction( file, 20 );
             getPersistedSpectrum( sbf, targetPath, spectrumDiscreteFilename );
 
             Interferogram interferogram = getInterferogram( sbf );
@@ -134,11 +133,11 @@ public class Runner {
         persister.perform( samples, Map.of("path", targetPath, "fileName", fileName) );
     }
 
-    public static Interferogram getInterferogram( SplineBasedFunction sbf ) {
+    public static Interferogram getInterferogram( Spline sbf ) {
         return new Interferogram( sbf );
     }
 
-    public static void getPersistedSpectrum( SplineBasedFunction sbf, String targetPath, String fileName ) {
+    public static void getPersistedSpectrum( Spline sbf, String targetPath, String fileName ) {
         SplineSampler sampler = new SplineSampler();
         SplinePersister persister = new SplinePersister();
 
@@ -147,7 +146,7 @@ public class Runner {
         persister.perform( samples, Map.of("path", targetPath, "fileName", fileName) );
     }
 
-    public static SplineBasedFunction getSplineBasedFunction( File file, int period ) {
+    public static Spline getSplineBasedFunction( File file, int period ) {
         return SplineEquationResolver.resolve( file, period );
     }
 

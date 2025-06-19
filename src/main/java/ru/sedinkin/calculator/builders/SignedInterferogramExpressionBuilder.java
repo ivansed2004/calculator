@@ -1,11 +1,11 @@
 package ru.sedinkin.calculator.builders;
 
-import ru.sedinkin.calculator.objects.interferogram.Unit;
+import ru.sedinkin.calculator.objects.interferogram.IUnit;
 
 public class SignedInterferogramExpressionBuilder implements InterferogramExpressionBuilder {
 
     @Override
-    public String buildTrigSum( Unit[] units ) {
+    public String buildTrigSum( IUnit[] units ) {
         String result = "";
 
         for ( int i = 0; i < units.length; i++ ) {

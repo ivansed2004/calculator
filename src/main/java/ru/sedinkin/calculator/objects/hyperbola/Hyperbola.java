@@ -11,7 +11,7 @@ public class Hyperbola extends MathObject {
     private final HUnit[] HUNITS;
 
     public Hyperbola( Interferogram interferogram ) {
-        this.HUNITS = Arrays.stream( interferogram.getUNITS() )
+        this.HUNITS = Arrays.stream( interferogram.getIUNITS() )
                 .flatMap( Arrays::stream )
                 .map( unit -> {
                     double A = Math.abs(unit.getA());
